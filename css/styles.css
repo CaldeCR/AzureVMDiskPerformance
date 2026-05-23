@@ -1,0 +1,204 @@
+/* ==================== CSS Variables (Light Mode) ==================== */
+:root {
+    --azure-blue: #0078d4;
+    --azure-dark: #004578;
+    --azure-light: #deecf9;
+    --bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text: #323130;
+    --text-secondary: #605e5c;
+    --border: #edebe9;
+    --success: #107c10;
+    --warning: #ffb900;
+    --danger: #d13438;
+    --header-gradient-start: var(--azure-dark);
+    --header-gradient-end: var(--azure-blue);
+    --progress-bg: #e1dfdd;
+    --formula-bg: #f0f0f0;
+    --note-bg: #fff8e1;
+    --table-even-row: #fafafa;
+    --burst-summary-bg: #f3f2f1;
+    --input-bg: #ffffff;
+    --input-disabled-bg: #f3f2f1;
+}
+
+/* ==================== Dark Mode ==================== */
+[data-theme="dark"] {
+    --azure-blue: #4da6ff;
+    --azure-dark: #8ecbff;
+    --azure-light: #1a3a5c;
+    --bg: #1b1b1b;
+    --card-bg: #2d2d2d;
+    --text: #d4d4d4;
+    --text-secondary: #a0a0a0;
+    --border: #404040;
+    --success: #4caf50;
+    --warning: #ffb74d;
+    --danger: #ef5350;
+    --header-gradient-start: #0d2137;
+    --header-gradient-end: #0e4a7a;
+    --progress-bg: #3c3c3c;
+    --formula-bg: #3c3c3c;
+    --note-bg: #3a3520;
+    --table-even-row: #333333;
+    --burst-summary-bg: #383838;
+    --input-bg: #3c3c3c;
+    --input-disabled-bg: #333333;
+}
+[data-theme="dark"] .disk-table th,
+[data-theme="dark"] table.ref-table thead th {
+    background: #1a3a5c;
+}
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .disk-table select,
+[data-theme="dark"] .disk-table input {
+    background: var(--input-bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+[data-theme="dark"] .search-result-item:hover,
+[data-theme="dark"] .search-result-item[style*="azure-light"] {
+    background: var(--azure-light) !important;
+}
+[data-theme="dark"] .burst-fam-group > summary {
+    background: var(--burst-summary-bg);
+}
+[data-theme="dark"] .burst-fam-table th {
+    background: #383838;
+}
+[data-theme="dark"] code {
+    background: #3c3c3c;
+    color: #d4d4d4;
+}
+
+/* ==================== Base ==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+header { background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end)); color: white; padding: 2rem 2rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+header h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.3rem; }
+header p { font-size: 0.95rem; opacity: 0.85; }
+.container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+.tabs { display: flex; gap: 4px; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+.tab { padding: 0.6rem 1.2rem; border: none; background: transparent; color: var(--text-secondary); font-size: 0.9rem; font-family: inherit; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.tab:hover { color: var(--azure-blue); }
+.tab.active { color: var(--azure-blue); border-bottom-color: var(--azure-blue); font-weight: 600; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.info-banner { background: var(--azure-light); border-left: 4px solid var(--azure-blue); padding: 1rem 1.2rem; margin-bottom: 1.5rem; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+.info-banner strong { color: var(--azure-dark); }
+.card { background: var(--card-bg); border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); padding: 1.2rem; margin-bottom: 1rem; }
+.card h2 { font-size: 1.1rem; color: var(--azure-dark); margin-bottom: 0.8rem; }
+.card h3 { font-size: 0.95rem; color: var(--azure-dark); margin-bottom: 0.5rem; }
+
+/* Form controls */
+.form-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+.form-group select, .form-group input { padding: 0.5rem 0.7rem; border: 1px solid #c8c6c4; border-radius: 4px; font-size: 0.9rem; font-family: inherit; min-width: 180px; }
+.form-group select:focus, .form-group input:focus { border-color: var(--azure-blue); outline: none; box-shadow: 0 0 0 2px rgba(0,120,212,0.2); }
+.btn { padding: 0.5rem 1rem; border: none; border-radius: 4px; font-size: 0.85rem; font-family: inherit; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+.btn-primary { background: var(--azure-blue); color: white; }
+.btn-primary:hover { background: var(--azure-dark); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { background: #a4262c; }
+.btn-sm { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+
+/* VM Limits display */
+.vm-limits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.limit-box { background: var(--card-bg); border-radius: 8px; padding: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.limit-box.cached { border-top: 3px solid #0078d4; }
+.limit-box.uncached { border-top: 3px solid #8764b8; }
+.limit-box h3 { font-size: 0.9rem; margin-bottom: 0.7rem; }
+.limit-row { display: flex; justify-content: space-between; padding: 0.3rem 0; font-size: 0.85rem; }
+.limit-row .label { color: var(--text-secondary); }
+.limit-row .value { font-weight: 600; font-family: 'Consolas', monospace; }
+
+/* Disk table */
+.disk-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 0.5rem; }
+.disk-table th { background: var(--azure-dark); color: white; padding: 0.5rem 0.6rem; text-align: left; font-weight: 600; white-space: nowrap; }
+.disk-table td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); }
+.disk-table tbody tr:hover { background: var(--azure-light); }
+.disk-table select, .disk-table input { padding: 0.3rem 0.5rem; border: 1px solid #c8c6c4; border-radius: 3px; font-size: 0.82rem; font-family: inherit; }
+.disk-table input[type="number"] { width: 80px; }
+.disk-table .remove-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1rem; padding: 0.2rem 0.4rem; }
+.disk-table .remove-btn:hover { background: #fde7e9; border-radius: 3px; }
+
+/* Summary bars */
+.summary-section { margin-top: 1.5rem; }
+.summary-row { display: grid; grid-template-columns: 160px 1fr 100px 100px; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.85rem; }
+.summary-label { font-weight: 600; color: var(--text-secondary); }
+.progress-container { background: var(--progress-bg); border-radius: 4px; height: 22px; position: relative; overflow: hidden; }
+.progress-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; color: white; min-width: fit-content; }
+.progress-bar.ok { background: linear-gradient(90deg, #107c10, #1ea81e); }
+.progress-bar.warning { background: linear-gradient(90deg, #ca5010, #ffb900); }
+.progress-bar.danger { background: linear-gradient(90deg, #a4262c, #d13438); }
+.summary-used { font-family: 'Consolas', monospace; text-align: right; }
+.summary-limit { font-family: 'Consolas', monospace; text-align: right; color: var(--text-secondary); }
+
+/* Status badges */
+.badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem; font-weight: 600; }
+.badge-ok { background: #dff6dd; color: #107c10; }
+.badge-warning { background: #fff4ce; color: #986f0b; }
+.badge-danger { background: #fde7e9; color: #a4262c; }
+
+/* Concepts grid */
+.concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.concept-card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border-top: 3px solid var(--azure-blue); }
+.concept-card h3 { color: var(--azure-dark); margin-bottom: 0.5rem; font-size: 1rem; }
+.concept-card p { font-size: 0.88rem; color: var(--text-secondary); }
+.formula { background: var(--formula-bg); padding: 0.5rem 0.8rem; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.85rem; margin-top: 0.5rem; display: inline-block; }
+.note { background: var(--note-bg); border-left: 4px solid var(--warning); padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.88rem; }
+.note-danger { background: #fde7e9; border-left-color: var(--danger); }
+
+/* Tables in reference tabs */
+.table-wrapper { background: var(--card-bg); border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow-x: auto; margin-bottom: 1.5rem; }
+.table-wrapper h2 { padding: 1rem 1.2rem 0.5rem; font-size: 1.1rem; color: var(--azure-dark); }
+table.ref-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.ref-table thead th { background: var(--azure-dark); color: white; padding: 0.7rem 0.8rem; text-align: left; font-weight: 600; white-space: nowrap; }
+table.ref-table tbody tr:nth-child(even) { background: var(--table-even-row); }
+table.ref-table tbody tr:hover { background: var(--azure-light); }
+table.ref-table td { padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+
+/* Results / Diagnosis */
+.diagnosis { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-size: 0.9rem; }
+.diagnosis.ok { background: #dff6dd; border: 1px solid #107c10; }
+.diagnosis.issue { background: #fde7e9; border: 1px solid #d13438; }
+.diagnosis h3 { margin-bottom: 0.5rem; }
+.diagnosis ul { margin-left: 1.5rem; }
+
+footer { text-align: center; padding: 1.5rem; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+footer a { color: var(--azure-blue); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* Burstable tab styles */
+.burst-fam-group { border:1px solid var(--border); border-radius:6px; margin-bottom:0.6rem; background: var(--card-bg); }
+.burst-fam-group > summary { cursor:pointer; padding:0.6rem 0.8rem; font-weight:600; font-size:0.95rem; background: var(--burst-summary-bg); border-radius:6px; list-style:none; display:flex; align-items:center; justify-content:space-between; }
+.burst-fam-group > summary::-webkit-details-marker { display:none; }
+.burst-fam-group[open] > summary { border-bottom:1px solid var(--border); border-radius:6px 6px 0 0; }
+.burst-fam-group > summary::after { content:"\25B6"; font-size:0.7rem; color:var(--text-secondary); transition:transform 0.15s; }
+.burst-fam-group[open] > summary::after { transform:rotate(90deg); }
+.burst-fam-label { color:var(--text-secondary); font-weight:400; font-size:0.8rem; margin-left:0.5rem; }
+.burst-fam-count { color:var(--text-secondary); font-weight:400; font-size:0.8rem; }
+.burst-fam-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+.burst-fam-table th { text-align:right; padding:0.5rem; border-bottom:2px solid var(--border); background: var(--table-even-row); }
+.burst-fam-table th:first-child { text-align:left; }
+.burst-fam-table td { padding:0.4rem 0.5rem; border-bottom:1px solid var(--border); text-align:right; }
+.burst-fam-table td:first-child { text-align:left; font-family:'Consolas',monospace; }
+
+/* Dark mode toggle */
+.theme-toggle { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-family: inherit; transition: all 0.2s; display: flex; align-items: center; gap: 0.4rem; }
+.theme-toggle:hover { background: rgba(255,255,255,0.25); }
+
+/* Config toolbar */
+.config-toolbar { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.config-toolbar .btn { font-size: 0.8rem; padding: 0.35rem 0.7rem; }
+.config-toolbar .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
+.config-toolbar .btn-outline:hover { background: var(--azure-light); color: var(--azure-blue); border-color: var(--azure-blue); }
+.config-status { font-size: 0.75rem; color: var(--text-secondary); font-style: italic; margin-left: 0.5rem; }
+
+@media (max-width: 768px) {
+    .vm-limits-grid { grid-template-columns: 1fr; }
+    .summary-row { grid-template-columns: 1fr; }
+    .form-row { flex-direction: column; }
+}
