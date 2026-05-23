@@ -1615,3 +1615,12 @@ const DISK_CONTROLLER_TYPE = {
     "HC":         "SCSI",
     "HX":         "SCSI"
 };
+
+// ==================== DISK DOC URLS (by disk type) ====================
+const DISK_DOC_URLS = {
+    "Premium SSD":     "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#premium-ssd",
+    "Standard SSD":    "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#standard-ssd",
+    "Standard HDD":    "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#standard-hdd",
+    "Premium SSD v2":  "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#premium-ssd-v2",
+    "Ultra Disk":      "https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types#ultra-disks"
+};
