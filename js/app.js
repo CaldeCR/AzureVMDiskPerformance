@@ -55,7 +55,6 @@ function autoSave() {
     };
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        showConfigStatus('Auto-saved');
     } catch (e) {
         // localStorage full or unavailable — silently ignore
     }
@@ -95,80 +94,16 @@ function autoLoad() {
             recalculate();
         }
 
-        if (state.timestamp) {
-            const ago = getTimeAgo(new Date(state.timestamp));
-            showConfigStatus('Restored from ' + ago);
-        }
     } catch (e) {
         // Corrupted data — ignore
     }
 }
 
-function getTimeAgo(date) {
-    const seconds = Math.floor((new Date() - date) / 1000);
-    if (seconds < 60) return 'just now';
-    if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
-    if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
-    return Math.floor(seconds / 86400) + 'd ago';
-}
-
-function showConfigStatus(msg) {
-    const el = document.getElementById('configStatus');
-    if (!el) return;
-    el.textContent = msg;
-    el.style.opacity = '1';
-    setTimeout(() => { el.style.opacity = '0.6'; }, 2000);
-}
-
 function clearSavedConfig() {
     localStorage.removeItem(STORAGE_KEY);
-    showConfigStatus('Saved config cleared');
 }
 
-// ==================== EXPORT CONFIG AS JSON ====================
-function exportConfig() {
-    if (!selectedVm && disks.length === 0) {
-        alert('Nothing to export. Select a VM and/or add disks first.');
-        return;
-    }
-    const config = {
-        exportDate: new Date().toISOString(),
-        tool: 'Azure VM and Disk Performance Calculator',
-        vm: selectedVm ? {
-            name: selectedVm.name,
-            purpose: document.getElementById('vmPurpose').value,
-            series: document.getElementById('vmSeries').value,
-            vcpus: selectedVm.vcpus,
-            memoryGiB: selectedVm.mem,
-            maxDisks: selectedVm.maxDisks,
-            cachedIops: selectedVm.cachedIops,
-            cachedMbps: selectedVm.cachedMbps,
-            uncachedIops: selectedVm.uncachedIops,
-            uncachedMbps: selectedVm.uncachedMbps
-        } : null,
-        disks: disks.map(d => ({
-            name: d.name,
-            type: d.type,
-            sku: d.sku,
-            hostCaching: d.caching,
-            iops: d.iops,
-            mbps: d.mbps,
-            burstEnabled: d.burst
-        }))
-    };
-    const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'azure-vm-disk-config-' + new Date().toISOString().slice(0, 10) + '.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showConfigStatus('Config exported');
-}
-
-// ==================== TAB NAVIGATION ====================
+// ==================== TAB NAVIGATION ======================================
 function showTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));

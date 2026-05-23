@@ -34,15 +34,6 @@
             <strong>How to use:</strong> Paste a VM SKU name (e.g. <code>Standard_D8s_v3</code>) in the quick search box, or select a VM family &rarr; choose the VM SKU &rarr; the VM's cached and uncached IOPS/throughput limits are shown. Then add disks with their host caching setting and disk SKU. The tool calculates total cached and uncached IOPS/MBps and shows whether you exceed VM limits.
         </div>
 
-        <!-- Config Toolbar -->
-        <div class="card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; padding:0.7rem 1.2rem;">
-            <div class="config-toolbar">
-                <button class="btn btn-outline" onclick="exportConfig()" title="Download current VM + disk config as JSON">&#128190; Export JSON</button>
-                <button class="btn btn-outline" onclick="clearSavedConfig()" title="Clear auto-saved configuration from browser">&#128465; Clear Saved</button>
-                <span class="config-status" id="configStatus"></span>
-            </div>
-        </div>
-
         <!-- VM Selection -->
         <div class="card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
