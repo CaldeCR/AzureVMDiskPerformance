@@ -71,6 +71,21 @@
     background: #3c3c3c;
     color: #d4d4d4;
 }
+[data-theme="dark"] .btn-reset {
+    background: #404040;
+    color: #d4d4d4;
+    border-color: #555;
+}
+[data-theme="dark"] .diagnosis.ok {
+    background: #1e3a1e;
+    border-color: #4caf50;
+    color: #c8e6c9;
+}
+[data-theme="dark"] .diagnosis.issue {
+    background: #3d1f1f;
+    border-color: #ef5350;
+    color: #ffcdd2;
+}
 
 /* ==================== Base ==================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,6 +118,7 @@ header p { font-size: 0.95rem; opacity: 0.85; }
 .btn-danger { background: var(--danger); color: white; }
 .btn-danger:hover { background: #a4262c; }
 .btn-sm { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+.btn-reset { background: #e1dfdd; color: var(--text); }
 
 /* VM Limits display */
 .vm-limits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }

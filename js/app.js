@@ -6,6 +6,35 @@ let selectedVm = null;
 let diskCounter = 0;
 let disks = [];
 
+// ==================== SERIES LIFECYCLE STATUS ====================
+// Source: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/previous-gen-sizes-list
+//         https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/retirement/retired-sizes-list
+const SERIES_LIFECYCLE = {
+    // Retirement Announced
+    "Av2":    "Retirement Announced",
+    "Fsv2":   "Retirement Announced",
+    "Lsv2":   "Retirement Announced",
+    "NVsv3":  "Retirement Announced",
+    // Retired
+    "NCsv3":  "Retired",
+    // Previous Gen — General Purpose
+    "Dsv3":   "Previous Gen",
+    "DCsv2":  "Retirement Announced",
+    // Previous Gen — Memory Optimized
+    "Esv3":   "Previous Gen",
+    "Ev4":    "Previous Gen",
+    "Esv4":   "Previous Gen",
+    "Eav4":   "Previous Gen",
+    "Easv4":  "Previous Gen",
+    "Edv4":   "Previous Gen",
+    "Edsv4":  "Previous Gen"
+};
+
+function getSeriesDisplayName(series) {
+    const status = SERIES_LIFECYCLE[series];
+    return status ? series + ' (' + status + ')' : series;
+}
+
 // ==================== DARK MODE ====================
 function initTheme() {
     const saved = localStorage.getItem('azure-vm-calc-theme');
@@ -171,7 +200,7 @@ function onFamilyChange() {
         if (getFamilyPrefix(series) !== family) continue;
         const opt = document.createElement('option');
         opt.value = series;
-        opt.textContent = series;
+        opt.textContent = getSeriesDisplayName(series);
         seriesSel.appendChild(opt);
     }
 }
@@ -249,11 +278,28 @@ function displayVmLimits() {
     if (!selectedVm) return;
     document.getElementById('cachedIops').textContent = selectedVm.cachedIops > 0 ? selectedVm.cachedIops.toLocaleString() : 'N/A (no local storage)';
     document.getElementById('cachedMbps').textContent = selectedVm.cachedMbps > 0 ? selectedVm.cachedMbps.toLocaleString() + ' MB/s' : 'N/A';
+    const rrIopsRow = document.getElementById('cachedRrIopsRow');
     const rrRwRow = document.getElementById('cachedRrRwRow');
+    const detailSep = document.getElementById('cachedDetailSeparator');
+    const rrRwLegend = document.getElementById('cachedRrRwLegend');
+    if (selectedVm.local && selectedVm.local.tempIopsRR != null) {
+        document.getElementById('cachedRrIops').textContent = selectedVm.local.tempIopsRR.toLocaleString();
+        rrIopsRow.style.display = '';
+        detailSep.style.display = '';
+        rrRwLegend.style.display = '';
+    } else {
+        rrIopsRow.style.display = 'none';
+        detailSep.style.display = 'none';
+        rrRwLegend.style.display = 'none';
+    }
     if (selectedVm.local && selectedVm.local.tempMbpsRR != null && selectedVm.local.tempMbpsRW != null) {
         document.getElementById('cachedRrRw').textContent =
             selectedVm.local.tempMbpsRR.toLocaleString() + ' MB/s  /  ' +
             selectedVm.local.tempMbpsRW.toLocaleString() + ' MB/s';
+        rrRwRow.style.display = '';
+    } else if (selectedVm.local && selectedVm.local.tempMbpsRR != null) {
+        document.getElementById('cachedRrRw').textContent =
+            selectedVm.local.tempMbpsRR.toLocaleString() + ' MB/s';
         rrRwRow.style.display = '';
     } else {
         rrRwRow.style.display = 'none';
@@ -614,7 +660,7 @@ function onVmSearchInput() {
             style="padding:0.5rem 1rem; cursor:pointer; font-size:0.88rem; border-bottom:1px solid var(--border); transition:background 0.1s;"
             onmouseenter="this.style.background='var(--azure-light)'" onmouseleave="this.style.background=searchHighlightIdx===${i}?'var(--azure-light)':''">
             <strong>${highlightMatch(m.sku, query)}</strong>
-            <span style="color:var(--text-secondary); margin-left:0.5rem; font-size:0.8rem;">${m.data.vcpus} vCPU \u00b7 ${m.data.mem} GiB \u00b7 ${m.purpose} \u00b7 ${m.series}</span>
+            <span style="color:var(--text-secondary); margin-left:0.5rem; font-size:0.8rem;">${m.data.vcpus} vCPU \u00b7 ${m.data.mem} GiB \u00b7 ${m.purpose} \u00b7 ${getSeriesDisplayName(m.series)}</span>
         </div>`
     ).join('');
     container.style.display = 'block';

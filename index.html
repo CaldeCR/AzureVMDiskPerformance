@@ -38,7 +38,7 @@
         <div class="card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
                 <h2 style="margin-bottom:0;">1. Select VM SKU</h2>
-                <button class="btn btn-sm" style="background:#e1dfdd; color:var(--text);" onclick="resetVmSelection()" title="Clear VM selection">&#8635; Reset VM</button>
+                <button class="btn btn-sm btn-reset" onclick="resetVmSelection()" title="Clear VM selection">&#8635; Reset VM</button>
             </div>
 
             <!-- Quick Search -->
@@ -95,7 +95,10 @@
                     <h3>&#128196; Local Storage / Cached Limits</h3>
                     <div class="limit-row"><span class="label">Max Cached IOPS:</span><span class="value" id="cachedIops">—</span></div>
                     <div class="limit-row"><span class="label">Max Cached Throughput:</span><span class="value" id="cachedMbps">— MB/s</span></div>
-                    <div class="limit-row" id="cachedRrRwRow" style="display:none; font-size:0.85em; color:#605e5c;"><span class="label">Random Read (RR) + Random Write (RW) Throughput:</span><span class="value" id="cachedRrRw">—</span></div>
+                    <div class="limit-row" id="cachedDetailSeparator" style="display:none; margin:0.3rem 0; border-top:1px dashed var(--border);"></div>
+                    <div class="limit-row" id="cachedRrIopsRow" style="display:none; font-size:0.85em; color:var(--text-secondary);"><span class="label">Temp Disk Random Read (RR) IOPS:</span><span class="value" id="cachedRrIops">—</span></div>
+                    <div class="limit-row" id="cachedRrRwRow" style="display:none; font-size:0.85em; color:var(--text-secondary);"><span class="label">Temp Disk Throughput (RR / RW):</span><span class="value" id="cachedRrRw">—</span></div>
+                    <div id="cachedRrRwLegend" style="display:none; font-size:0.75em; color:var(--text-secondary); margin-top:0.2rem; padding-left:0.5rem;">RR: Random Reads &nbsp;|&nbsp; RW: Random Writes</div>
                 </div>
                 <div class="limit-box uncached">
                     <h3>&#9729; Remote Storage / Uncached Limits</h3>
@@ -459,6 +462,12 @@
     <p>Last updated: May 2026 — Verify values against official docs</p>
     <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.4rem;">
         Created by Jorge Calder&oacute;n with AI assistance (GitHub Copilot).
+    </p>
+    <p style="margin-top:1rem;">
+        <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR-t7pwg75wpMmwWATEox1V5UQ0oyMFdCM0YzUkZMNzVQTEpOOUFLOE4zVC4u" target="_blank" class="btn" style="display:inline-flex; align-items:center; gap:0.4rem; text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Feedback
+        </a>
     </p>
 </footer>
 

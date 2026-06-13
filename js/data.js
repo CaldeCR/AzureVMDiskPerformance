@@ -141,18 +141,20 @@ const VM_DATA = {
             "Standard_B16ps_v2":  {vcpus:16, mem:64,  local:null, remote:{maxDataDisks:32, uncachedIopsPremium:25600, uncachedMbpsPremium:600, uncachedIopsBurstPremium:40000, uncachedMbpsBurstPremium:960}}
         },
         "DCsv3": {
-            "Standard_DC2s_v3":  {vcpus:2,  mem:16,  maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:3200,  uncachedMbps:48},
-            "Standard_DC4s_v3":  {vcpus:4,  mem:32,  maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:6400,  uncachedMbps:96},
-            "Standard_DC8s_v3":  {vcpus:8,  mem:64,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:12800, uncachedMbps:192},
+            "Standard_DC1s_v3":  {vcpus:1,  mem:8,   maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:0, uncachedMbps:0},
+            "Standard_DC2s_v3":  {vcpus:2,  mem:16,  maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:3200,  uncachedMbps:48},
+            "Standard_DC4s_v3":  {vcpus:4,  mem:32,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:6400,  uncachedMbps:96},
+            "Standard_DC8s_v3":  {vcpus:8,  mem:64,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:12800, uncachedMbps:192},
             "Standard_DC16s_v3": {vcpus:16, mem:128, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:25600, uncachedMbps:384},
             "Standard_DC24s_v3": {vcpus:24, mem:192, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:38400, uncachedMbps:576},
             "Standard_DC32s_v3": {vcpus:32, mem:256, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200, uncachedMbps:768},
             "Standard_DC48s_v3": {vcpus:48, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:76800, uncachedMbps:1152}
         },
         "DCdsv3": {
-            "Standard_DC2ds_v3":  {vcpus:2,  mem:16,  maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:3200,  uncachedMbps:48},
-            "Standard_DC4ds_v3":  {vcpus:4,  mem:32,  maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:6400,  uncachedMbps:96},
-            "Standard_DC8ds_v3":  {vcpus:8,  mem:64,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:12800, uncachedMbps:192},
+            "Standard_DC1ds_v3":  {vcpus:1,  mem:8,   maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:0, uncachedMbps:0},
+            "Standard_DC2ds_v3":  {vcpus:2,  mem:16,  maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:3200,  uncachedMbps:48},
+            "Standard_DC4ds_v3":  {vcpus:4,  mem:32,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:6400,  uncachedMbps:96},
+            "Standard_DC8ds_v3":  {vcpus:8,  mem:64,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:12800, uncachedMbps:192},
             "Standard_DC16ds_v3": {vcpus:16, mem:128, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:25600, uncachedMbps:384},
             "Standard_DC24ds_v3": {vcpus:24, mem:192, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:38400, uncachedMbps:576},
             "Standard_DC32ds_v3": {vcpus:32, mem:256, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200, uncachedMbps:768},
@@ -542,18 +544,24 @@ const VM_DATA = {
             "Standard_E4s_v5":  {vcpus:4,  mem:32,  maxDisks:8,  cachedIops:0,  cachedMbps:0,  uncachedIops:6400,  uncachedMbps:145},
             "Standard_E8s_v5":  {vcpus:8,  mem:64,  maxDisks:16, cachedIops:0,  cachedMbps:0,  uncachedIops:12800, uncachedMbps:290},
             "Standard_E16s_v5": {vcpus:16, mem:128, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:25600, uncachedMbps:600},
+            "Standard_E20s_v5": {vcpus:20, mem:160, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:32000, uncachedMbps:750},
             "Standard_E32s_v5": {vcpus:32, mem:256, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:51200, uncachedMbps:865},
             "Standard_E48s_v5": {vcpus:48, mem:384, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:76800, uncachedMbps:1315},
-            "Standard_E64s_v5": {vcpus:64, mem:512, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:80000, uncachedMbps:1735}
+            "Standard_E64s_v5":   {vcpus:64,  mem:512, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:80000,  uncachedMbps:1735},
+            "Standard_E96s_v5":   {vcpus:96,  mem:672, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:80000,  uncachedMbps:2600},
+            "Standard_E104is_v5": {vcpus:104, mem:672, maxDisks:64, cachedIops:0,  cachedMbps:0,  uncachedIops:120000, uncachedMbps:4000}
         },
         "Edsv5": {
             "Standard_E2ds_v5":  {vcpus:2,  mem:16,  maxDisks:4,  cachedIops:9000,   cachedMbps:125,  uncachedIops:3750,  uncachedMbps:85},
             "Standard_E4ds_v5":  {vcpus:4,  mem:32,  maxDisks:8,  cachedIops:19000,  cachedMbps:250,  uncachedIops:6400,  uncachedMbps:145},
             "Standard_E8ds_v5":  {vcpus:8,  mem:64,  maxDisks:16, cachedIops:38000,  cachedMbps:500,  uncachedIops:12800, uncachedMbps:290},
             "Standard_E16ds_v5": {vcpus:16, mem:128, maxDisks:32, cachedIops:75000,  cachedMbps:1000, uncachedIops:25600, uncachedMbps:600},
+            "Standard_E20ds_v5": {vcpus:20, mem:160, maxDisks:32, cachedIops:94000,  cachedMbps:1250, uncachedIops:32000, uncachedMbps:750},
             "Standard_E32ds_v5": {vcpus:32, mem:256, maxDisks:32, cachedIops:150000, cachedMbps:2000, uncachedIops:51200, uncachedMbps:865},
             "Standard_E48ds_v5": {vcpus:48, mem:384, maxDisks:32, cachedIops:225000, cachedMbps:3000, uncachedIops:76800, uncachedMbps:1315},
-            "Standard_E64ds_v5": {vcpus:64, mem:512, maxDisks:32, cachedIops:300000, cachedMbps:4000, uncachedIops:80000, uncachedMbps:1735}
+            "Standard_E64ds_v5":   {vcpus:64,  mem:512, maxDisks:32, cachedIops:375000, cachedMbps:4000, uncachedIops:80000,  uncachedMbps:1735},
+            "Standard_E96ds_v5":   {vcpus:96,  mem:672, maxDisks:32, cachedIops:450000, cachedMbps:4000, uncachedIops:80000,  uncachedMbps:2600},
+            "Standard_E104ids_v5": {vcpus:104, mem:672, maxDisks:64, cachedIops:450000, cachedMbps:4000, uncachedIops:120000, uncachedMbps:4000}
         },
         "Easv4": {
             "Standard_E2as_v4":  {vcpus:2,  mem:16,  maxDisks:4,  cachedIops:0,  cachedMbps:0,  uncachedIops:3200,  uncachedMbps:48},
@@ -562,7 +570,7 @@ const VM_DATA = {
             "Standard_E16as_v4": {vcpus:16, mem:128, maxDisks:32, cachedIops:32000, cachedMbps:400, uncachedIops:25600, uncachedMbps:384},
             "Standard_E20as_v4": {vcpus:20, mem:160, maxDisks:32, cachedIops:40000, cachedMbps:500, uncachedIops:32000, uncachedMbps:480},
             "Standard_E32as_v4": {vcpus:32, mem:256, maxDisks:32, cachedIops:64000, cachedMbps:800, uncachedIops:51200, uncachedMbps:768},
-            "Standard_E48as_v4": {vcpus:48, mem:384, maxDisks:32, cachedIops:96000, cachedMbps:1200,uncachedIops:76800, uncachedMbps:1152},
+            "Standard_E48as_v4": {vcpus:48, mem:384, maxDisks:32, cachedIops:96000, cachedMbps:1200,uncachedIops:76800, uncachedMbps:1148},
             "Standard_E64as_v4": {vcpus:64, mem:512, maxDisks:32, cachedIops:128000,cachedMbps:1600,uncachedIops:80000, uncachedMbps:1200},
             "Standard_E96as_v4": {vcpus:96, mem:672, maxDisks:32, cachedIops:192000,cachedMbps:2400,uncachedIops:80000, uncachedMbps:1200}
         },
@@ -582,7 +590,7 @@ const VM_DATA = {
             "Standard_E16bds_v5": {vcpus:16, mem:128, maxDisks:32, cachedIops:75000,  cachedMbps:1000, uncachedIops:44000,  uncachedMbps:1250},
             "Standard_E32bds_v5": {vcpus:32, mem:256, maxDisks:32, cachedIops:150000, cachedMbps:2000, uncachedIops:88000,  uncachedMbps:2500},
             "Standard_E48bds_v5": {vcpus:48, mem:384, maxDisks:32, cachedIops:225000, cachedMbps:3000, uncachedIops:120000, uncachedMbps:4000},
-            "Standard_E64bds_v5": {vcpus:64, mem:512, maxDisks:32, cachedIops:375000, cachedMbps:4000, uncachedIops:120000, uncachedMbps:4000}
+            "Standard_E64bds_v5": {vcpus:64, mem:512, maxDisks:32, cachedIops:300000, cachedMbps:4000, uncachedIops:120000, uncachedMbps:4000}
         },
         "ECsv5": {
             "Standard_EC2s_v5":  {vcpus:2,  mem:16,  maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:3750,  uncachedMbps:85},
@@ -604,17 +612,17 @@ const VM_DATA = {
         },
         "M": {
             "Standard_M8ms":   {vcpus:8,   mem:219,  maxDisks:8,  cachedIops:10000,  cachedMbps:100,  uncachedIops:5000,   uncachedMbps:125},
-            "Standard_M16ms":  {vcpus:16,  mem:438,  maxDisks:8,  cachedIops:20000,  cachedMbps:200,  uncachedIops:10000,  uncachedMbps:250},
-            "Standard_M32ts":  {vcpus:32,  mem:192,  maxDisks:16, cachedIops:40000,  cachedMbps:400,  uncachedIops:20000,  uncachedMbps:500},
-            "Standard_M32ls":  {vcpus:32,  mem:256,  maxDisks:16, cachedIops:40000,  cachedMbps:400,  uncachedIops:20000,  uncachedMbps:500},
-            "Standard_M32ms":  {vcpus:32,  mem:875,  maxDisks:16, cachedIops:40000,  cachedMbps:400,  uncachedIops:20000,  uncachedMbps:500},
-            "Standard_M64s":   {vcpus:64,  mem:1024, maxDisks:32, cachedIops:80000,  cachedMbps:800,  uncachedIops:40000,  uncachedMbps:1000},
-            "Standard_M64ls":  {vcpus:64,  mem:512,  maxDisks:32, cachedIops:80000,  cachedMbps:800,  uncachedIops:40000,  uncachedMbps:1000},
-            "Standard_M64ms":  {vcpus:64,  mem:1792, maxDisks:32, cachedIops:80000,  cachedMbps:800,  uncachedIops:40000,  uncachedMbps:1000},
+            "Standard_M16ms":  {vcpus:16,  mem:438,  maxDisks:16, cachedIops:20000,  cachedMbps:200,  uncachedIops:10000,  uncachedMbps:250},
+            "Standard_M32ts":  {vcpus:32,  mem:192,  maxDisks:32, cachedIops:40000,  cachedMbps:400,  uncachedIops:20000,  uncachedMbps:500},
+            "Standard_M32ls":  {vcpus:32,  mem:256,  maxDisks:32, cachedIops:40000,  cachedMbps:400,  uncachedIops:20000,  uncachedMbps:500},
+            "Standard_M32ms":  {vcpus:32,  mem:875,  maxDisks:32, cachedIops:40000,  cachedMbps:400,  uncachedIops:20000,  uncachedMbps:500},
+            "Standard_M64s":   {vcpus:64,  mem:1024, maxDisks:64, cachedIops:80000,  cachedMbps:800,  uncachedIops:40000,  uncachedMbps:1000},
+            "Standard_M64ls":  {vcpus:64,  mem:512,  maxDisks:64, cachedIops:80000,  cachedMbps:800,  uncachedIops:40000,  uncachedMbps:1000},
+            "Standard_M64ms":  {vcpus:64,  mem:1792, maxDisks:64, cachedIops:80000,  cachedMbps:800,  uncachedIops:40000,  uncachedMbps:1000},
             "Standard_M128s":  {vcpus:128, mem:2048, maxDisks:64, cachedIops:160000, cachedMbps:1600, uncachedIops:80000,  uncachedMbps:2000},
             "Standard_M128ms": {vcpus:128, mem:3892, maxDisks:64, cachedIops:160000, cachedMbps:1600, uncachedIops:80000,  uncachedMbps:2000},
-            "Standard_M64":    {vcpus:64,  mem:1024, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:40000,  uncachedMbps:1000},
-            "Standard_M64m":   {vcpus:64,  mem:1792, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:40000,  uncachedMbps:1000},
+            "Standard_M64":    {vcpus:64,  mem:1024, maxDisks:64, cachedIops:0, cachedMbps:0, uncachedIops:40000,  uncachedMbps:1000},
+            "Standard_M64m":   {vcpus:64,  mem:1792, maxDisks:64, cachedIops:0, cachedMbps:0, uncachedIops:40000,  uncachedMbps:1000},
             "Standard_M128":   {vcpus:128, mem:2048, maxDisks:64, cachedIops:0, cachedMbps:0, uncachedIops:80000,  uncachedMbps:2000},
             "Standard_M128m":  {vcpus:128, mem:3892, maxDisks:64, cachedIops:0, cachedMbps:0, uncachedIops:80000,  uncachedMbps:2000}
         },
