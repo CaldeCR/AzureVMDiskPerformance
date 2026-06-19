@@ -43,7 +43,7 @@
 
             <!-- Quick Search -->
             <div style="margin-bottom:1rem; position:relative;">
-                <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:0.3rem;">Quick Search ΓÇö Paste or type a VM SKU</label>
+                <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:0.3rem;">Quick Search — Paste or type a VM SKU</label>
                 <div style="display:flex; gap:0.5rem; align-items:center;">
                     <div style="position:relative; flex:1; max-width:420px;">
                         <input type="text" id="vmSearchInput" placeholder="e.g. Standard_D8s_v3" autocomplete="off"
@@ -93,29 +93,29 @@
             <div class="vm-limits-grid">
                 <div class="limit-box cached">
                     <h3>&#128196; Local Storage / Cached Limits</h3>
-                    <div class="limit-row"><span class="label">Max Cached IOPS:</span><span class="value" id="cachedIops">ΓÇö</span></div>
-                    <div class="limit-row"><span class="label">Max Cached Throughput:</span><span class="value" id="cachedMbps">ΓÇö MB/s</span></div>
+                    <div class="limit-row"><span class="label">Max Cached IOPS:</span><span class="value" id="cachedIops">—</span></div>
+                    <div class="limit-row"><span class="label">Max Cached Throughput:</span><span class="value" id="cachedMbps">— MB/s</span></div>
                     <div class="limit-row" id="cachedDetailSeparator" style="display:none; margin:0.3rem 0; border-top:1px dashed var(--border);"></div>
-                    <div class="limit-row" id="cachedRrIopsRow" style="display:none; font-size:0.85em; color:var(--text-secondary);"><span class="label">Temp Disk Random Read (RR) IOPS:</span><span class="value" id="cachedRrIops">ΓÇö</span></div>
-                    <div class="limit-row" id="cachedRrRwRow" style="display:none; font-size:0.85em; color:var(--text-secondary);"><span class="label">Temp Disk Throughput (RR / RW):</span><span class="value" id="cachedRrRw">ΓÇö</span></div>
+                    <div class="limit-row" id="cachedRrIopsRow" style="display:none; font-size:0.85em; color:var(--text-secondary);"><span class="label">Temp Disk Random Read (RR) IOPS:</span><span class="value" id="cachedRrIops">—</span></div>
+                    <div class="limit-row" id="cachedRrRwRow" style="display:none; font-size:0.85em; color:var(--text-secondary);"><span class="label">Temp Disk Throughput (RR / RW):</span><span class="value" id="cachedRrRw">—</span></div>
                     <div id="cachedRrRwLegend" style="display:none; font-size:0.75em; color:var(--text-secondary); margin-top:0.2rem; padding-left:0.5rem;">RR: Random Reads &nbsp;|&nbsp; RW: Random Writes</div>
                 </div>
                 <div class="limit-box uncached">
                     <h3>&#9729; Remote Storage / Uncached Limits</h3>
-                    <div class="limit-row"><span class="label">Max Uncached IOPS:</span><span class="value" id="uncachedIops">ΓÇö</span></div>
-                    <div class="limit-row"><span class="label">Max Uncached Throughput:</span><span class="value" id="uncachedMbps">ΓÇö MB/s</span></div>
+                    <div class="limit-row"><span class="label">Max Uncached IOPS:</span><span class="value" id="uncachedIops">—</span></div>
+                    <div class="limit-row"><span class="label">Max Uncached Throughput:</span><span class="value" id="uncachedMbps">— MB/s</span></div>
                 </div>
             </div>
             <div class="limit-box" style="border-top: 3px solid #323130; margin-bottom: 1.5rem;">
                 <div style="display:flex; gap:2rem; flex-wrap:wrap;">
-                    <div class="limit-row" style="flex:1;"><span class="label">vCPUs:</span><span class="value" id="vmVcpus">ΓÇö</span></div>
-                    <div class="limit-row" style="flex:1;"><span class="label">Memory:</span><span class="value" id="vmMemory">ΓÇö GiB</span></div>
-                    <div class="limit-row" style="flex:1;"><span class="label">Max Data Disks:</span><span class="value" id="vmMaxDisks">ΓÇö</span></div>
-                    <div class="limit-row" style="flex:1;"><span class="label">Disk Controller:</span><span class="value" id="vmDiskController">ΓÇö</span></div>
+                    <div class="limit-row" style="flex:1;"><span class="label">vCPUs:</span><span class="value" id="vmVcpus">—</span></div>
+                    <div class="limit-row" style="flex:1;"><span class="label">Memory:</span><span class="value" id="vmMemory">— GiB</span></div>
+                    <div class="limit-row" style="flex:1;"><span class="label">Max Data Disks:</span><span class="value" id="vmMaxDisks">—</span></div>
+                    <div class="limit-row" style="flex:1;"><span class="label">Disk Controller:</span><span class="value" id="vmDiskController">—</span></div>
                 </div>
                 <div id="vmDocLinkRow" style="margin-top:0.7rem; padding-top:0.7rem; border-top:1px solid var(--border); font-size:0.85rem;">
                     <span class="label" style="color:var(--text-secondary);">Documentation:</span>
-                    <a id="vmDocLink" href="#" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; margin-left:0.4rem;">ΓÇö</a>
+                    <a id="vmDocLink" href="#" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; margin-left:0.4rem;">—</a>
                 </div>
             </div>
 
@@ -138,7 +138,7 @@
                                 <th>Host Caching</th>
                                 <th>IOPS</th>
                                 <th>Throughput (MB/s)</th>
-                                <th title="Enable on-demand disk bursting (P1ΓÇôP20 only)">Burst</th>
+                                <th title="Enable on-demand disk bursting (P1–P20 only)">Burst</th>
                                 <th>Counts As</th>
                                 <th></th>
                             </tr>
@@ -389,11 +389,11 @@
                     <tr><td>E15</td><td>256</td><td>500</td><td>100</td><td>600</td><td>150</td></tr>
                     <tr><td>E20</td><td>512</td><td>500</td><td>100</td><td>600</td><td>150</td></tr>
                     <tr><td>E30</td><td>1,024</td><td>500</td><td>100</td><td>1,000</td><td>250</td></tr>
-                    <tr><td>E40</td><td>2,048</td><td>500</td><td>100</td><td>ΓÇö</td><td>ΓÇö</td></tr>
-                    <tr><td>E50</td><td>4,096</td><td>500</td><td>100</td><td>ΓÇö</td><td>ΓÇö</td></tr>
-                    <tr><td>E60</td><td>8,192</td><td>2,000</td><td>400</td><td>ΓÇö</td><td>ΓÇö</td></tr>
-                    <tr><td>E70</td><td>16,384</td><td>4,000</td><td>600</td><td>ΓÇö</td><td>ΓÇö</td></tr>
-                    <tr><td>E80</td><td>32,767</td><td>6,000</td><td>750</td><td>ΓÇö</td><td>ΓÇö</td></tr>
+                    <tr><td>E40</td><td>2,048</td><td>500</td><td>100</td><td>—</td><td>—</td></tr>
+                    <tr><td>E50</td><td>4,096</td><td>500</td><td>100</td><td>—</td><td>—</td></tr>
+                    <tr><td>E60</td><td>8,192</td><td>2,000</td><td>400</td><td>—</td><td>—</td></tr>
+                    <tr><td>E70</td><td>16,384</td><td>4,000</td><td>600</td><td>—</td><td>—</td></tr>
+                    <tr><td>E80</td><td>32,767</td><td>6,000</td><td>750</td><td>—</td><td>—</td></tr>
                 </tbody>
             </table>
         </div>
@@ -459,7 +459,7 @@
     <p>Reference: <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance" target="_blank">VM and disk performance</a> |
     <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types" target="_blank">Managed disk types</a> |
     <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview" target="_blank">VM sizes</a></p>
-    <p>Last updated: May 2026 ΓÇö Verify values against official docs</p>
+    <p>Last updated: May 2026 — Verify values against official docs</p>
     <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.4rem;">
         Created by Jorge Calder&oacute;n with AI assistance (GitHub Copilot).
     </p>
