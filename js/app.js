@@ -1,6 +1,6 @@
 // ==================== APP LOGIC ====================
 // Azure VM and Disk Performance Limits Calculator
-// Split from monolithic HTML — all UI logic, state, and new features
+// Split from monolithic HTML ΓÇö all UI logic, state, and new features
 
 let selectedVm = null;
 let diskCounter = 0;
@@ -17,10 +17,10 @@ const SERIES_LIFECYCLE = {
     "NVsv3":  "Retirement Announced",
     // Retired
     "NCsv3":  "Retired",
-    // Previous Gen — General Purpose
+    // Previous Gen ΓÇö General Purpose
     "Dsv3":   "Previous Gen",
     "DCsv2":  "Retirement Announced",
-    // Previous Gen — Memory Optimized
+    // Previous Gen ΓÇö Memory Optimized
     "Esv3":   "Previous Gen",
     "Ev4":    "Previous Gen",
     "Esv4":   "Previous Gen",
@@ -85,7 +85,7 @@ function autoSave() {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
-        // localStorage full or unavailable — silently ignore
+        // localStorage full or unavailable ΓÇö silently ignore
     }
 }
 
@@ -124,7 +124,7 @@ function autoLoad() {
         }
 
     } catch (e) {
-        // Corrupted data — ignore
+        // Corrupted data ΓÇö ignore
     }
 }
 

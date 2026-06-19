@@ -1,6 +1,6 @@
-﻿// ==================== AUTO-EXTRACTED DATA ====================
+∩╗┐// ==================== AUTO-EXTRACTED DATA ====================
 // Source: AzureVM and Disk Performance Limits v2.html
-// Do not edit manually — regenerate from source if needed
+// Do not edit manually ΓÇö regenerate from source if needed
 // ==================== DISK DATA ====================
 const DISK_SKUS = {
     "Premium SSD": {
@@ -91,10 +91,20 @@ const VM_DATA = {
             "Standard_D48as_v5": {vcpus:48, mem:192, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:76800, uncachedMbps:1148},
             "Standard_D64as_v5": {vcpus:64, mem:256, maxDisks:32, cachedIops:0,  cachedMbps:0,  uncachedIops:80000, uncachedMbps:1200}
         },
+        "Dadsv5": {
+            "Standard_D2ads_v5":  {vcpus:2,  mem:8,   maxDisks:4,  cachedIops:9000,   cachedMbps:125,  uncachedIops:3750,  uncachedMbps:82},
+            "Standard_D4ads_v5":  {vcpus:4,  mem:16,  maxDisks:8,  cachedIops:19000,  cachedMbps:250,  uncachedIops:6400,  uncachedMbps:144},
+            "Standard_D8ads_v5":  {vcpus:8,  mem:32,  maxDisks:16, cachedIops:38000,  cachedMbps:500,  uncachedIops:12800, uncachedMbps:200},
+            "Standard_D16ads_v5": {vcpus:16, mem:64,  maxDisks:32, cachedIops:75000,  cachedMbps:1000, uncachedIops:25600, uncachedMbps:384},
+            "Standard_D32ads_v5": {vcpus:32, mem:128, maxDisks:32, cachedIops:150000, cachedMbps:2000, uncachedIops:51200, uncachedMbps:768},
+            "Standard_D48ads_v5": {vcpus:48, mem:192, maxDisks:32, cachedIops:225000, cachedMbps:3000, uncachedIops:76800, uncachedMbps:1152},
+            "Standard_D64ads_v5": {vcpus:64, mem:256, maxDisks:32, cachedIops:300000, cachedMbps:4000, uncachedIops:80000, uncachedMbps:1200},
+            "Standard_D96ads_v5": {vcpus:96, mem:384, maxDisks:32, cachedIops:450000, cachedMbps:4000, uncachedIops:80000, uncachedMbps:1600}
+        },
         "Av2": {
             // New schema: local/remote sub-objects sourced from MS Learn av2-series.md.
             // local=null means SKU has no temp disk; remote=null means no managed disk support.
-            // Av2 doc lists "Uncached Premium SSD IOPS" only — no MBps column — so uncachedMbpsPremium is null.
+            // Av2 doc lists "Uncached Premium SSD IOPS" only ΓÇö no MBps column ΓÇö so uncachedMbpsPremium is null.
             "Standard_A1_v2":  {vcpus:1,  mem:2,  local:{maxTempDisks:1, tempDiskGiB:10, tempIopsRR:1000, tempMbpsRR:20,  tempMbpsRW:10}, remote:{maxDataDisks:2,  uncachedIopsPremium:1000, uncachedMbpsPremium:null}},
             "Standard_A2_v2":  {vcpus:2,  mem:4,  local:{maxTempDisks:1, tempDiskGiB:20, tempIopsRR:2000, tempMbpsRR:40,  tempMbpsRW:20}, remote:{maxDataDisks:4,  uncachedIopsPremium:2000, uncachedMbpsPremium:null}},
             "Standard_A4_v2":  {vcpus:4,  mem:8,  local:{maxTempDisks:1, tempDiskGiB:40, tempIopsRR:4000, tempMbpsRR:80,  tempMbpsRW:40}, remote:{maxDataDisks:8,  uncachedIopsPremium:4000, uncachedMbpsPremium:null}},
@@ -161,7 +171,7 @@ const VM_DATA = {
             "Standard_DC48ds_v3": {vcpus:48, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:76800, uncachedMbps:1152}
         },
         // ===== DC-family v2 (Intel SGX, confidential computing) =====
-        // Remote IOPS/MBps not published in official docs — TODO: confirm when available
+        // Remote IOPS/MBps not published in official docs ΓÇö TODO: confirm when available
         "DCsv2": {
             "Standard_DC1s_v2": {vcpus:1, mem:4,  maxDisks:1, cachedIops:0, cachedMbps:0, uncachedIops:0 /* TODO: confirm */, uncachedMbps:0 /* TODO: confirm */},
             "Standard_DC2s_v2": {vcpus:2, mem:8,  maxDisks:2, cachedIops:0, cachedMbps:0, uncachedIops:0 /* TODO: confirm */, uncachedMbps:0 /* TODO: confirm */},
@@ -189,7 +199,7 @@ const VM_DATA = {
             "Standard_DC64ads_v5": {vcpus:64, mem:256, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:1200},
             "Standard_DC96ads_v5": {vcpus:96, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:1200}
         },
-        // ===== DC-family v5 CC (AMD EPYC Milan, confidential computing — community/preview) =====
+        // ===== DC-family v5 CC (AMD EPYC Milan, confidential computing ΓÇö community/preview) =====
         "DCasccv5": {
             "Standard_DC4as_cc_v5":  {vcpus:4,  mem:16,  maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:6400,  uncachedMbps:144},
             "Standard_DC8as_cc_v5":  {vcpus:8,  mem:32,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:12800, uncachedMbps:200},
@@ -209,7 +219,7 @@ const VM_DATA = {
             "Standard_DC96ads_cc_v5": {vcpus:96, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:1600}
         },
         // ===== DC-family v6 (confidential computing) =====
-        // AMD Genoa EPYC 9004 — per-SKU remote IOPS/MBps not yet published in official docs
+        // AMD Genoa EPYC 9004 ΓÇö per-SKU remote IOPS/MBps not yet published in official docs
         "DCasv6": {
             "Standard_DC2as_v6":  {vcpus:2,  mem:8,   local:null, remote:{maxDataDisks:0 /* TODO: confirm */, uncachedIopsPremium:0 /* TODO: confirm */, uncachedMbpsPremium:0 /* TODO: confirm */, uncachedIopsBurstPremium:0 /* TODO: confirm */, uncachedMbpsBurstPremium:0 /* TODO: confirm */}},
             "Standard_DC4as_v6":  {vcpus:4,  mem:16,  local:null, remote:{maxDataDisks:0 /* TODO: confirm */, uncachedIopsPremium:0 /* TODO: confirm */, uncachedMbpsPremium:0 /* TODO: confirm */, uncachedIopsBurstPremium:0 /* TODO: confirm */, uncachedMbpsBurstPremium:0 /* TODO: confirm */}},
@@ -1351,6 +1361,7 @@ const VM_DOC_URLS = {
     "Dsv5":       "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dsv5-series",
     "Ddsv5":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/ddsv5-series",
     "Dasv5":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dasv5-series",
+    "Dadsv5":     "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dadsv5-series",
     "Av2":        "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/av2-series",
     "Bsv2":       "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/bsv2-series",
     "Basv2":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/basv2-series",
@@ -1491,6 +1502,7 @@ const DISK_CONTROLLER_TYPE = {
     "Dsv5":       "SCSI",
     "Ddsv5":      "SCSI",
     "Dasv5":      "SCSI",
+    "Dadsv5":     "SCSI",
     "Av2":        "SCSI",
     "Bsv2":       "SCSI",
     "Basv2":      "SCSI",
@@ -1502,12 +1514,12 @@ const DISK_CONTROLLER_TYPE = {
     "DCadsv5":    "SCSI",
     "DCasccv5":   "SCSI",
     "DCadsccv5":  "SCSI",
-    // DC-family v6 — NVMe per MS Learn
+    // DC-family v6 ΓÇö NVMe per MS Learn
     "DCasv6":     "NVMe",
     "DCadsv6":    "NVMe",
     "DCesv6":     "NVMe",
     "DCedsv6":    "NVMe",
-    // v7 D-family — NVMe-only per MS Learn ("This VM series will only work on OS images that support NVMe")
+    // v7 D-family ΓÇö NVMe-only per MS Learn ("This VM series will only work on OS images that support NVMe")
     "Dsv7":       "NVMe",
     "Ddsv7":      "NVMe",
     "Dlsv7":      "NVMe",
@@ -1516,7 +1528,7 @@ const DISK_CONTROLLER_TYPE = {
     "Dadsv7":     "NVMe",
     "Dalsv7":     "NVMe",
     "Daldsv7":    "NVMe",
-    // v6 D-family — NVMe per MS Learn
+    // v6 D-family ΓÇö NVMe per MS Learn
     "Dsv6":       "NVMe",
     "Ddsv6":      "NVMe",
     "Dlsv6":      "NVMe",
@@ -1591,11 +1603,11 @@ const DISK_CONTROLLER_TYPE = {
     "FX":         "SCSI",
     "FXmsv2":     "NVMe",
     "FXmdsv2":    "NVMe",
-    // v6 F-family — NVMe per MS Learn
+    // v6 F-family ΓÇö NVMe per MS Learn
     "Fasv6":      "NVMe",
     "Falsv6":     "NVMe",
     "Famsv6":     "NVMe",
-    // v7 F-family — NVMe-only per MS Learn
+    // v7 F-family ΓÇö NVMe-only per MS Learn
     "Fasv7":      "NVMe",
     "Fadsv7":     "NVMe",
     "Famsv7":     "NVMe",
