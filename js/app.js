@@ -1042,14 +1042,23 @@ function initDiskSimulator() {
 
 function onSimDiskTypeChange() {
     const type = document.getElementById('simDiskType').value;
+    const isCustom = (type === 'premiumV2' || type === 'ultra');
     const sel = document.getElementById('simDiskSku');
-    sel.innerHTML = '';
-    const disks = SIM_DISK_DATA[type] || [];
-    for (const d of disks) {
-        const opt = document.createElement('option');
-        opt.value = d.sku;
-        opt.textContent = d.sku + ' (' + d.size + ') — ' + d.iops.toLocaleString() + ' IOPS / ' + d.mbps + ' MBps';
-        sel.appendChild(opt);
+
+    // Toggle SKU vs Provisioned fields
+    document.getElementById('simSkuGroup').style.display = isCustom ? 'none' : '';
+    document.getElementById('simProvIopsGroup').style.display = isCustom ? '' : 'none';
+    document.getElementById('simProvMbpsGroup').style.display = isCustom ? '' : 'none';
+
+    if (!isCustom) {
+        sel.innerHTML = '';
+        const disks = SIM_DISK_DATA[type] || [];
+        for (const d of disks) {
+            const opt = document.createElement('option');
+            opt.value = d.sku;
+            opt.textContent = d.sku + ' (' + d.size + ') — ' + d.iops.toLocaleString() + ' IOPS / ' + d.mbps + ' MBps';
+            sel.appendChild(opt);
+        }
     }
 }
 
@@ -1060,28 +1069,66 @@ function getSimDiskSpec(type, sku) {
 
 function simAddDisk() {
     const type = document.getElementById('simDiskType').value;
-    const sku = document.getElementById('simDiskSku').value;
+    const isCustom = (type === 'premiumV2' || type === 'ultra');
     const iopsUsage = parseInt(document.getElementById('simIopsUsage').value) || 0;
     const mbpsUsage = parseInt(document.getElementById('simMbpsUsage').value) || 0;
-    const spec = getSimDiskSpec(type, sku);
-    if (!spec) return;
-    if (iopsUsage <= 0 && mbpsUsage <= 0) return;
+    const msgEl = document.getElementById('simValidationMsg');
 
-    simDiskId++;
-    simDisks.push({
-        id: simDiskId,
-        type: type,
-        sku: spec.sku,
-        size: spec.size,
-        iops: spec.iops,
-        mbps: spec.mbps,
-        burstIops: spec.burstIops,
-        burstMbps: spec.burstMbps,
-        burstType: spec.burstType,
-        iopsUsage: iopsUsage,
-        mbpsUsage: mbpsUsage
-    });
+    if (iopsUsage <= 0 && mbpsUsage <= 0) {
+        msgEl.textContent = '⚠ Enter at least one value: IOPS Usage or MBps Usage must be greater than 0 to add a disk.';
+        msgEl.style.display = 'block';
+        setTimeout(() => { msgEl.style.display = 'none'; }, 5000);
+        return;
+    }
 
+    let diskEntry;
+
+    if (isCustom) {
+        const provIops = parseInt(document.getElementById('simProvIops').value) || 0;
+        const provMbps = parseInt(document.getElementById('simProvMbps').value) || 0;
+        if (provIops <= 0 && provMbps <= 0) {
+            msgEl.textContent = '⚠ Enter Provisioned IOPS and/or Provisioned MBps — these define the disk\u2019s performance limits.';
+            msgEl.style.display = 'block';
+            setTimeout(() => { msgEl.style.display = 'none'; }, 5000);
+            return;
+        }
+        const label = type === 'premiumV2' ? 'PremiumV2' : 'Ultra';
+        diskEntry = {
+            id: ++simDiskId,
+            type: type,
+            sku: label,
+            size: 'Custom',
+            iops: provIops,
+            mbps: provMbps,
+            burstIops: provIops,
+            burstMbps: provMbps,
+            burstType: 'none',
+            iopsUsage: iopsUsage,
+            mbpsUsage: mbpsUsage
+        };
+        document.getElementById('simProvIops').value = '';
+        document.getElementById('simProvMbps').value = '';
+    } else {
+        const sku = document.getElementById('simDiskSku').value;
+        const spec = getSimDiskSpec(type, sku);
+        if (!spec) return;
+        diskEntry = {
+            id: ++simDiskId,
+            type: type,
+            sku: spec.sku,
+            size: spec.size,
+            iops: spec.iops,
+            mbps: spec.mbps,
+            burstIops: spec.burstIops,
+            burstMbps: spec.burstMbps,
+            burstType: spec.burstType,
+            iopsUsage: iopsUsage,
+            mbpsUsage: mbpsUsage
+        };
+    }
+
+    msgEl.style.display = 'none';
+    simDisks.push(diskEntry);
     document.getElementById('simIopsUsage').value = '';
     document.getElementById('simMbpsUsage').value = '';
     simRenderAll();

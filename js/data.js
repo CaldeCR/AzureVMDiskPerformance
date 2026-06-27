@@ -1106,11 +1106,11 @@ const VM_DATA = {
             "Standard_F72s_v2": {vcpus:72, mem:144, maxDisks:32, cachedIops:144000, cachedMbps:1152, uncachedIops:80000, uncachedMbps:1100}
         },
         "FX": {
-            "Standard_FX4mds":  {vcpus:4,  mem:84,   maxDisks:8,  cachedIops:12800,  cachedMbps:200,  uncachedIops:6700,   uncachedMbps:156},
-            "Standard_FX12mds": {vcpus:12, mem:252,  maxDisks:24, cachedIops:38400,  cachedMbps:600,  uncachedIops:20000,  uncachedMbps:468},
-            "Standard_FX24mds": {vcpus:24, mem:504,  maxDisks:32, cachedIops:76800,  cachedMbps:1200, uncachedIops:40000,  uncachedMbps:936},
-            "Standard_FX36mds": {vcpus:36, mem:756,  maxDisks:32, cachedIops:115200, cachedMbps:1800, uncachedIops:60000,  uncachedMbps:1404},
-            "Standard_FX48mds": {vcpus:48, mem:1008, maxDisks:32, cachedIops:153600, cachedMbps:2400, uncachedIops:80000,  uncachedMbps:1872}
+            "Standard_FX4mds":  {vcpus:4,  mem:84,   maxDisks:8,  cachedIops:12800,  cachedMbps:200,  uncachedIops:6700,   uncachedMbps:104},
+            "Standard_FX12mds": {vcpus:12, mem:252,  maxDisks:24, cachedIops:38400,  cachedMbps:600,  uncachedIops:20000,  uncachedMbps:314},
+            "Standard_FX24mds": {vcpus:24, mem:504,  maxDisks:32, cachedIops:76800,  cachedMbps:1200, uncachedIops:40000,  uncachedMbps:629},
+            "Standard_FX36mds": {vcpus:36, mem:756,  maxDisks:32, cachedIops:115200, cachedMbps:1800, uncachedIops:60000,  uncachedMbps:944},
+            "Standard_FX48mds": {vcpus:48, mem:1008, maxDisks:32, cachedIops:153600, cachedMbps:2400, uncachedIops:80000,  uncachedMbps:1258}
         },
         // ===== FX v2 family (Intel Emerald Rapids, compute-optimized) =====
         // Schema: {local, remote} sub-objects feeding normalizeVm(); local=null for sizes with no temp disk.
@@ -1283,15 +1283,15 @@ const VM_DATA = {
             "Standard_L32s_v3": {vcpus:32, mem:256, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200, uncachedMbps:865},
             "Standard_L48s_v3": {vcpus:48, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:76800, uncachedMbps:1315},
             "Standard_L64s_v3": {vcpus:64, mem:512, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:1735},
-            "Standard_L80s_v3": {vcpus:80, mem:640, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000}
+            "Standard_L80s_v3": {vcpus:80, mem:640, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2160}
         },
         "Lsv2": {
-            "Standard_L8s_v2":  {vcpus:8,  mem:64,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:6400,  uncachedMbps:200},
-            "Standard_L16s_v2": {vcpus:16, mem:128, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:12800, uncachedMbps:400},
-            "Standard_L32s_v2": {vcpus:32, mem:256, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:25600, uncachedMbps:800},
-            "Standard_L48s_v2": {vcpus:48, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:38400, uncachedMbps:1200},
-            "Standard_L64s_v2": {vcpus:64, mem:512, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200, uncachedMbps:1600},
-            "Standard_L80s_v2": {vcpus:80, mem:640, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:64000, uncachedMbps:2000}
+            "Standard_L8s_v2":  {vcpus:8,  mem:64,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:8000,  uncachedMbps:160},
+            "Standard_L16s_v2": {vcpus:16, mem:128, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:16000, uncachedMbps:320},
+            "Standard_L32s_v2": {vcpus:32, mem:256, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:32000, uncachedMbps:640},
+            "Standard_L48s_v2": {vcpus:48, mem:384, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:48000, uncachedMbps:960},
+            "Standard_L64s_v2": {vcpus:64, mem:512, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:64000, uncachedMbps:1280},
+            "Standard_L80s_v2": {vcpus:80, mem:640, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:1400}
         }
     },
     "GPU Accelerated": {
@@ -1305,20 +1305,22 @@ const VM_DATA = {
             "Standard_ND40rs_v2": {vcpus:40, mem:672, maxDisks:32, cachedIops:80000, cachedMbps:800, uncachedIops:80000, uncachedMbps:800}
         },
         "ND_A100_v4": {
-            "Standard_ND96asr_v4":      {vcpus:96, mem:900,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
-            "Standard_ND96amsr_A100_v4": {vcpus:96, mem:1924, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000}
+            "Standard_ND96asr_v4":      {vcpus:96, mem:900,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:800},
+            "Standard_ND96amsr_A100_v4": {vcpus:96, mem:1924, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:800}
         },
         "NGadsV620": {
             "Standard_NG8ads_V620_v1":  {vcpus:8,  mem:16,  maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:12800,  uncachedMbps:200},
-            "Standard_NG16ads_V620_v1": {vcpus:16, mem:32,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:25600,  uncachedMbps:400},
-            "Standard_NG32ads_V620_v1": {vcpus:32, mem:64,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200,  uncachedMbps:800}
+            "Standard_NG16ads_V620_v1": {vcpus:16, mem:32,  maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:25600,  uncachedMbps:384},
+            "Standard_NG32ads_V620_v1": {vcpus:32, mem:64,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200,  uncachedMbps:768},
+            "Standard_NG32adms_V620_v1": {vcpus:32, mem:176, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200,  uncachedMbps:768}
         },
         "NVadsA10v5": {
-            "Standard_NV6ads_A10_v5":  {vcpus:6,  mem:55,  maxDisks:4,  cachedIops:10000,  cachedMbps:100,  uncachedIops:6300,   uncachedMbps:93},
-            "Standard_NV12ads_A10_v5": {vcpus:12, mem:110, maxDisks:8,  cachedIops:20000,  cachedMbps:200,  uncachedIops:12600,  uncachedMbps:187},
-            "Standard_NV18ads_A10_v5": {vcpus:18, mem:220, maxDisks:16, cachedIops:40000,  cachedMbps:400,  uncachedIops:25200,  uncachedMbps:374},
-            "Standard_NV36ads_A10_v5": {vcpus:36, mem:440, maxDisks:32, cachedIops:80000,  cachedMbps:800,  uncachedIops:50400,  uncachedMbps:748},
-            "Standard_NV72ads_A10_v5": {vcpus:72, mem:880, maxDisks:32, cachedIops:160000, cachedMbps:1600, uncachedIops:100800, uncachedMbps:1496}
+            "Standard_NV6ads_A10_v5":  {vcpus:6,  mem:55,  maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:6400,   uncachedMbps:100},
+            "Standard_NV12ads_A10_v5": {vcpus:12, mem:110, maxDisks:4,  cachedIops:0, cachedMbps:0, uncachedIops:12800,  uncachedMbps:200},
+            "Standard_NV18ads_A10_v5": {vcpus:18, mem:220, maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:25600,  uncachedMbps:384},
+            "Standard_NV36ads_A10_v5": {vcpus:36, mem:440, maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:51200,  uncachedMbps:768},
+            "Standard_NV36adms_A10_v5": {vcpus:36, mem:880, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:51200,  uncachedMbps:768},
+            "Standard_NV72ads_A10_v5": {vcpus:72, mem:880, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000,  uncachedMbps:1200}
         },
         "NVsv3": {
             "Standard_NV12s_v3": {vcpus:12, mem:112, maxDisks:12, cachedIops:20000, cachedMbps:200, uncachedIops:20000, uncachedMbps:200},
@@ -1328,8 +1330,8 @@ const VM_DATA = {
     },
     "FPGA Accelerated": {
         "NPsv1": {
-            "Standard_NP10s": {vcpus:10, mem:168, maxDisks:12, cachedIops:0, cachedMbps:0, uncachedIops:12000, uncachedMbps:200},
-            "Standard_NP20s": {vcpus:20, mem:336, maxDisks:24, cachedIops:0, cachedMbps:0, uncachedIops:24000, uncachedMbps:400},
+            "Standard_NP10s": {vcpus:10, mem:168, maxDisks:8,  cachedIops:0, cachedMbps:0, uncachedIops:12000, uncachedMbps:200},
+            "Standard_NP20s": {vcpus:20, mem:336, maxDisks:16, cachedIops:0, cachedMbps:0, uncachedIops:24000, uncachedMbps:400},
             "Standard_NP40s": {vcpus:40, mem:672, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:48000, uncachedMbps:800}
         }
     },
@@ -1345,11 +1347,11 @@ const VM_DATA = {
             "Standard_HC44rs": {vcpus:44, mem:352, maxDisks:4, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:1200}
         },
         "HX": {
-            "Standard_HX176rs":  {vcpus:176, mem:768,  maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
-            "Standard_HX176-144rs": {vcpus:144, mem:768, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
-            "Standard_HX176-96rs":  {vcpus:96,  mem:768, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
-            "Standard_HX176-48rs":  {vcpus:48,  mem:768, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
-            "Standard_HX176-24rs":  {vcpus:24,  mem:768, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000}
+            "Standard_HX176rs":  {vcpus:176, mem:1408, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
+            "Standard_HX176-144rs": {vcpus:144, mem:1408, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
+            "Standard_HX176-96rs":  {vcpus:96,  mem:1408, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
+            "Standard_HX176-48rs":  {vcpus:48,  mem:1408, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000},
+            "Standard_HX176-24rs":  {vcpus:24,  mem:1408, maxDisks:32, cachedIops:0, cachedMbps:0, uncachedIops:80000, uncachedMbps:2000}
         }
     }
 };
@@ -1432,11 +1434,11 @@ const VM_DOC_URLS = {
     "Eav4": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/eav4-series",
     "Ebdsv6": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ebdsv6-series",
     "Ebsv6": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ebsv6-series",
-    "ECadsccv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecasccv5-ecadsccv5-series",
-    "ECadsv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecasv5-ecadsv5-series",
+    "ECadsccv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/ecasccv5-ecadsccv5-series",
+    "ECadsv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/ecasv5-ecadsv5-series",
     "ECadsv6": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecadsv6-series",
-    "ECasccv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecasccv5-ecadsccv5-series",
-    "ECasv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecasv5-ecadsv5-series",
+    "ECasccv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/ecasccv5-ecadsccv5-series",
+    "ECasv5": "https://learn.microsoft.com/en-us/azure/virtual-machines/ecasv5-ecadsv5-series",
     "ECasv6": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecasv6-series",
     "ECedsv6": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecedsv6-series",
     "ECesv6": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/ecesv6-series",
@@ -1482,7 +1484,7 @@ const VM_DOC_URLS = {
     // GPU Accelerated
     "NCsv3":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ncv3-series",
     "NDv2":       "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ndv2-series",
-    "ND_A100_v4": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/nda100v4-series",
+    "ND_A100_v4": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ndasra100v4-series",
     "NGadsV620":  "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/ngadsv620-series",
     "NVadsA10v5": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/nvadsa10v5-series",
     "NVsv3":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/gpu-accelerated/nvv3-series",
