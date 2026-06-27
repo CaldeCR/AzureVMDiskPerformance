@@ -21,15 +21,16 @@
 
 <div class="container">
     <div class="tabs">
-        <button class="tab active" onclick="showTab('calculator')">Performance Calculator</button>
+        <button class="tab active" onclick="showTab('overview')">Overview</button>
+        <button class="tab" onclick="showTab('calculator')">Performance Calculator</button>
         <button class="tab" onclick="showTab('burstable')">Burstable VMs</button>
-        <button class="tab" onclick="showTab('overview')">Overview</button>
+        <button class="tab" onclick="showTab('disk-simulator')">Disk Perf Simulator</button>
         <button class="tab" onclick="showTab('disk-reference')">Disk Reference</button>
         <button class="tab" onclick="showTab('best-practices')">Best Practices</button>
     </div>
 
     <!-- ==================== CALCULATOR TAB ==================== -->
-    <div id="calculator" class="tab-content active">
+    <div id="calculator" class="tab-content">
         <div class="info-banner">
             <strong>How to use:</strong> Paste a VM SKU name (e.g. <code>Standard_D8s_v3</code>) in the quick search box, or select a VM family &rarr; choose the VM SKU &rarr; the VM's cached and uncached IOPS/throughput limits are shown. Then add disks with their host caching setting and disk SKU. The tool calculates total cached and uncached IOPS/MBps and shows whether you exceed VM limits.
         </div>
@@ -321,38 +322,205 @@
     </div>
 
     <!-- ==================== OVERVIEW TAB ==================== -->
-    <div id="overview" class="tab-content">
-        <div class="info-banner">
-            <strong>Key Principle:</strong> Effective disk performance is the <em>minimum</em> of the VM-level limit and the disk-level limit. A disk can never exceed what the VM allows, and the VM can never push more IO than the disk supports.
+    <div id="overview" class="tab-content active">
+        <!-- Goals Section -->
+        <div class="overview-hero">
+            <h2>Welcome to the Azure VM &amp; Disk Performance Toolkit</h2>
+            <p>This toolkit provides a set of interactive tools designed to help Azure support engineers and architects analyze, troubleshoot, and explain VM and disk performance configurations. Use the tools below to replicate customer environments, identify bottlenecks, and visually communicate performance limits.</p>
         </div>
-        <div class="concepts-grid">
-            <div class="concept-card">
-                <h3>IOPS (Input/Output Operations Per Second)</h3>
-                <p>The number of read/write operations a disk or VM can handle per second. Higher IOPS = better for transactional workloads (databases, OLTP).</p>
-                <p style="margin-top:0.5rem;"><a href="https://docs.azure.cn/en-us/virtual-machines/premium-storage-performance#:~:text=to%20optimize%20them.-,IOPS,-IOPS%20is%20the" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; font-size:0.85rem;">Learn more about IOPS &#8599;</a></p>
+
+        <!-- Tool Navigation Cards -->
+        <h3 class="overview-section-title">Tools &amp; Resources</h3>
+        <div class="overview-cards-grid">
+            <!-- Performance Calculator -->
+            <div class="tool-card" onclick="showTab('calculator')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showTab('calculator')">
+                <div class="card-illustration illus-calculator">
+                    <div class="gauge-row"><span class="gauge-label">Cached IOPS</span><div class="gauge-track"><div class="gauge-fill cached-iops">3,600</div><span class="gauge-cap">/ 5,000</span></div></div>
+                    <div class="gauge-row"><span class="gauge-label">Cached MBps</span><div class="gauge-track"><div class="gauge-fill cached-mbps">90</div><span class="gauge-cap">/ 200</span></div></div>
+                    <div class="gauge-row"><span class="gauge-label">Uncached IOPS</span><div class="gauge-track"><div class="gauge-fill uncached-iops over">7,200</div><span class="gauge-cap">/ 6,400</span></div></div>
+                    <div class="gauge-row"><span class="gauge-label">Uncached MBps</span><div class="gauge-track"><div class="gauge-fill uncached-mbps">76</div><span class="gauge-cap">/ 200</span></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>Performance Calculator</h3>
+                    <p>Analyze cases where customers report performance issues related to VM and disk limits. Replicate a customer's environment by selecting their VM SKU and attached disks, then get a visual breakdown of cached and uncached IOPS/throughput usage against VM limits&mdash;making it easy to identify misconfigurations or bottlenecks in the disk design.</p>
+                    <span class="card-arrow">Open tool &rarr;</span>
+                </div>
             </div>
-            <div class="concept-card">
-                <h3>Throughput (MB/s)</h3>
-                <p>The volume of data transferred per second. Higher throughput = better for sequential workloads (backups, large file copies, data warehousing).</p>
-                <p style="margin-top:0.5rem;"><a href="https://docs.azure.cn/en-us/virtual-machines/premium-storage-performance#:~:text=it%20can%20sustain.-,Throughput,-Throughput%2C%20or%20bandwidth" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; font-size:0.85rem;">Learn more about Throughput &#8599;</a></p>
+
+            <!-- Burstable VMs -->
+            <div class="tool-card" onclick="showTab('burstable')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showTab('burstable')">
+                <div class="card-illustration illus-burst">
+                    <div class="burst-chart">
+                        <svg viewBox="0 0 200 80" preserveAspectRatio="none">
+                            <defs><linearGradient id="burstGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8764b8"/><stop offset="100%" stop-color="#f3e8ff"/></linearGradient></defs>
+                            <line x1="0" y1="50" x2="200" y2="50" class="burst-baseline"/>
+                            <path d="M0,50 L20,48 40,42 55,20 65,8 75,15 90,35 110,45 130,48 150,50 170,50 200,50 L200,80 L0,80 Z" class="burst-area"/>
+                            <polyline points="0,50 20,48 40,42 55,20 65,8 75,15 90,35 110,45 130,48 150,50 170,50 200,50" class="burst-line"/>
+                            <text x="2" y="10" class="burst-label">Credits</text>
+                            <text x="55" y="6" class="burst-label" text-anchor="middle" fill="#8764b8">Burst</text>
+                            <text x="170" y="46" class="burst-label">Baseline</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Burstable VMs (B-Series)</h3>
+                    <p>Explore the performance limits and credit-based consumption model of B-series burstable VMs. Visualize how CPU credits are earned and consumed over time, and simulate different CPU utilization levels&mdash;helping explain throttling behavior and right-sizing decisions.</p>
+                    <span class="card-arrow">Open tool &rarr;</span>
+                </div>
             </div>
-            <div class="concept-card">
-                <h3>VM-Level Capping</h3>
-                <p>Each VM size has maximum cached and uncached disk IOPS and throughput. Cached limits apply to disks with host caching enabled (ReadOnly/ReadWrite). Uncached limits apply to disks with host caching set to None.</p>
+
+            <!-- Disk Perf Simulator -->
+            <div class="tool-card" onclick="showTab('disk-simulator')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showTab('disk-simulator')">
+                <div class="card-illustration illus-calculator" style="background: linear-gradient(135deg, #d4ebd4 0%, #e0f0e0 50%, #ecfaec 100%);">
+                    <div class="gauge-row"><span class="gauge-label" style="color:#107c10;">P30 IOPS</span><div class="gauge-track"><div class="gauge-fill" style="width:84%; background:linear-gradient(90deg,#0d6e0d,#107c10,#1ea81e);">4,200</div><span class="gauge-cap">/ 5,000</span></div></div>
+                    <div class="gauge-row"><span class="gauge-label" style="color:#107c10;">P30 MBps</span><div class="gauge-track"><div class="gauge-fill" style="width:90%; background:linear-gradient(90deg,#b5460d,#ca5010,#e88a2d);">180</div><span class="gauge-cap">/ 200</span></div></div>
+                    <div class="gauge-row"><span class="gauge-label" style="color:#107c10;">P20 IOPS</span><div class="gauge-track"><div class="gauge-fill" style="width:56%; background:linear-gradient(90deg,#0d6e0d,#107c10,#1ea81e);">1,300</div><span class="gauge-cap">/ 2,300</span></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>Disk Perf Usage Simulator</h3>
+                    <p>Simulate disk workload usage against Azure managed disk limits. Add multiple disks, set IOPS and MBps consumption, and visualize how burst credits deplete over time&mdash;ideal for explaining throttling scenarios to customers.</p>
+                    <span class="card-arrow">Open tool &rarr;</span>
+                </div>
             </div>
-            <div class="concept-card">
-                <h3>Host Caching</h3>
-                <p><strong>ReadOnly/ReadWrite</strong> = IO counts against the VM's <em>cached</em> limits. <strong>None</strong> = IO counts against the VM's <em>uncached</em> limits. This is the critical factor that determines which VM limit applies.</p>
-                <p style="margin-top:0.5rem;"><a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance#:~:text=their%20requested%20amounts.-,Virtual%20machine%20uncached%20vs%20cached%20limits,-Virtual%20machines%20that" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; font-size:0.85rem;">Learn more about Host Caching &#8599;</a></p>
+
+            <!-- Disk Reference -->
+            <div class="tool-card" onclick="showTab('disk-reference')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showTab('disk-reference')">
+                <div class="card-illustration illus-disk">
+                    <table class="mini-table">
+                        <thead><tr><th>SKU</th><th>Size</th><th>IOPS</th><th>MBps</th><th>Burst</th></tr></thead>
+                        <tbody>
+                            <tr><td>P10</td><td>128 GiB</td><td>500</td><td>100</td><td>3,500</td></tr>
+                            <tr><td>P20</td><td>512 GiB</td><td>2,300</td><td>150</td><td>3,500</td></tr>
+                            <tr><td>P30</td><td>1 TiB</td><td>5,000</td><td>200</td><td>30,000</td></tr>
+                            <tr><td>P40</td><td>2 TiB</td><td>7,500</td><td>250</td><td>30,000</td></tr>
+                            <tr><td>P50</td><td>4 TiB</td><td>7,500</td><td>250</td><td>30,000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-body">
+                    <h3>Disk Reference Tables</h3>
+                    <p>Quick-reference tables for all Azure managed disk SKUs&mdash;Premium SSD, Standard SSD, and Standard HDD&mdash;with IOPS, throughput, and burst capabilities at a glance.</p>
+                    <span class="card-arrow">Open tool &rarr;</span>
+                </div>
             </div>
-            <div class="concept-card">
-                <h3>Effective Performance</h3>
-                <p>Total disk IOPS/MBps for each caching group must not exceed the VM limit for that group:</p>
-                <span class="formula">Cached Total &le; VM Cached Limit<br>Uncached Total &le; VM Uncached Limit</span>
+
+            <!-- Best Practices -->
+            <div class="tool-card" onclick="showTab('best-practices')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showTab('best-practices')">
+                <div class="card-illustration illus-tips">
+                    <div class="check-item"><span class="check-icon done">&#10003;</span><span class="check-text">Match VM to aggregate disk IO</span></div>
+                    <div class="check-item"><span class="check-icon done">&#10003;</span><span class="check-text">Use host caching wisely</span></div>
+                    <div class="check-item"><span class="check-icon done">&#10003;</span><span class="check-text">Monitor throttling metrics</span></div>
+                    <div class="check-item"><span class="check-icon pending">&#9675;</span><span class="check-text">Right-size disk SKUs</span></div>
+                    <div class="check-item"><span class="check-icon pending">&#9675;</span><span class="check-text">Stripe for performance</span></div>
+                </div>
+                <div class="card-body">
+                    <h3>Best Practices</h3>
+                    <p>Guidance on matching VM sizes to disk workloads, choosing host caching strategies, monitoring throttling metrics, and avoiding common performance misconfigurations.</p>
+                    <span class="card-arrow">Open tool &rarr;</span>
+                </div>
             </div>
-            <div class="concept-card">
-                <h3>Common Misconfiguration</h3>
-                <p>Attaching multiple high-performance disks (e.g., P30 with 5,000 IOPS each) to a VM that cannot handle the aggregate. The VM throttles all disk IO, causing latency spikes and poor performance.</p>
+        </div>
+
+    </div>
+
+    <!-- ==================== DISK PERF SIMULATOR TAB ==================== -->
+    <div id="disk-simulator" class="tab-content">
+        <div class="info-banner">
+            <strong>How to use:</strong> Select a disk type and SKU, enter the IOPS and MBps your workload generates, then click <strong>Add Disk</strong>. Add multiple disks to see aggregate usage. The gauges show instant usage vs. limits, and the chart shows how burst credits deplete over time under sustained load.
+        </div>
+
+        <!-- Disk Configuration -->
+        <div class="card">
+            <h2>1. Add Disks &amp; Set Usage</h2>
+            <div class="form-row" style="align-items:flex-end;">
+                <div class="form-group">
+                    <label>Disk Type</label>
+                    <select id="simDiskType" onchange="onSimDiskTypeChange()">
+                        <option value="premium">Premium SSD (P-series)</option>
+                        <option value="standardSsd">Standard SSD (E-series)</option>
+                        <option value="standardHdd">Standard HDD (S-series)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Disk SKU</label>
+                    <select id="simDiskSku"></select>
+                </div>
+                <div class="form-group">
+                    <label>IOPS Usage</label>
+                    <input type="number" id="simIopsUsage" min="0" placeholder="e.g. 4200">
+                </div>
+                <div class="form-group">
+                    <label>MBps Usage</label>
+                    <input type="number" id="simMbpsUsage" min="0" placeholder="e.g. 180">
+                </div>
+                <button class="btn btn-primary" onclick="simAddDisk()">+ Add Disk</button>
+            </div>
+            <div id="simDiskChips" style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.5rem;"></div>
+        </div>
+
+        <!-- Per-Disk Gauges -->
+        <div class="card" id="simGaugesCard" style="display:none;">
+            <h2>2. Usage vs. Limits</h2>
+            <div id="simGaugesContainer"></div>
+            <!-- Aggregate -->
+            <div id="simAggregateSection" style="display:none; border-top:2px solid var(--border); padding-top:1rem; margin-top:1rem;">
+                <h3 style="color:var(--text); margin-bottom:0.8rem;">Aggregate (All Disks)</h3>
+                <div class="summary-row">
+                    <span class="summary-label">Total IOPS</span>
+                    <div class="progress-container"><div class="progress-bar ok" id="simBarAggIops" style="width:0%"></div></div>
+                    <span class="summary-used" id="simAggIopsUsed">0</span>
+                    <span class="summary-limit" id="simAggIopsMax">/ 0</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Total MBps</span>
+                    <div class="progress-container"><div class="progress-bar ok" id="simBarAggMbps" style="width:0%"></div></div>
+                    <span class="summary-used" id="simAggMbpsUsed">0</span>
+                    <span class="summary-limit" id="simAggMbpsMax">/ 0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Burst Simulation Chart -->
+        <div class="card" id="simChartCard" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+                <h2 style="margin-bottom:0;">3. Burst Credit Simulation Over Time</h2>
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <label style="font-size:0.8rem; color:var(--text-secondary);">Duration:</label>
+                    <select id="simDuration" onchange="simRunChart()" style="padding:0.3rem 0.5rem; border:1px solid #c8c6c4; border-radius:6px; font-size:0.82rem; font-family:inherit;">
+                        <option value="30">30 min</option>
+                        <option value="60" selected>60 min</option>
+                        <option value="120">2 hours</option>
+                        <option value="360">6 hours</option>
+                    </select>
+                </div>
+            </div>
+            <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:1rem;">Shows effective IOPS/MBps over time. When usage exceeds baseline and burst credits are available, the disk bursts. Once credits are depleted, performance is throttled back to baseline limits.</p>
+            <div style="position:relative; height:320px;">
+                <canvas id="simBurstChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Breakdown Table -->
+        <div class="card" id="simTableCard" style="display:none;">
+            <h2>Disk Breakdown</h2>
+            <div style="overflow-x:auto;">
+                <table class="disk-table" id="simBreakdownTable">
+                    <thead>
+                        <tr>
+                            <th>Disk</th>
+                            <th>IOPS Used</th>
+                            <th>IOPS Max</th>
+                            <th>MBps Used</th>
+                            <th>MBps Max</th>
+                            <th>Burst IOPS</th>
+                            <th>Burst MBps</th>
+                            <th>IOPS %</th>
+                            <th>MBps %</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="simBreakdownBody"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -423,6 +591,43 @@
 
     <!-- ==================== BEST PRACTICES TAB ==================== -->
     <div id="best-practices" class="tab-content">
+        <div class="info-banner">
+            <strong>Key Principle:</strong> Effective disk performance is the <em>minimum</em> of the VM-level limit and the disk-level limit. A disk can never exceed what the VM allows, and the VM can never push more IO than the disk supports.
+        </div>
+
+        <h3 style="color:var(--azure-dark); margin-bottom:1rem;">Key Concepts</h3>
+        <div class="concepts-grid">
+            <div class="concept-card">
+                <h3>IOPS (Input/Output Operations Per Second)</h3>
+                <p>The number of read/write operations a disk or VM can handle per second. Higher IOPS = better for transactional workloads (databases, OLTP).</p>
+                <p style="margin-top:0.5rem;"><a href="https://docs.azure.cn/en-us/virtual-machines/premium-storage-performance#:~:text=to%20optimize%20them.-,IOPS,-IOPS%20is%20the" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; font-size:0.85rem;">Learn more about IOPS &#8599;</a></p>
+            </div>
+            <div class="concept-card">
+                <h3>Throughput (MB/s)</h3>
+                <p>The volume of data transferred per second. Higher throughput = better for sequential workloads (backups, large file copies, data warehousing).</p>
+                <p style="margin-top:0.5rem;"><a href="https://docs.azure.cn/en-us/virtual-machines/premium-storage-performance#:~:text=it%20can%20sustain.-,Throughput,-Throughput%2C%20or%20bandwidth" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; font-size:0.85rem;">Learn more about Throughput &#8599;</a></p>
+            </div>
+            <div class="concept-card">
+                <h3>VM-Level Capping</h3>
+                <p>Each VM size has maximum cached and uncached disk IOPS and throughput. Cached limits apply to disks with host caching enabled (ReadOnly/ReadWrite). Uncached limits apply to disks with host caching set to None.</p>
+            </div>
+            <div class="concept-card">
+                <h3>Host Caching</h3>
+                <p><strong>ReadOnly/ReadWrite</strong> = IO counts against the VM's <em>cached</em> limits. <strong>None</strong> = IO counts against the VM's <em>uncached</em> limits. This is the critical factor that determines which VM limit applies.</p>
+                <p style="margin-top:0.5rem;"><a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance#:~:text=their%20requested%20amounts.-,Virtual%20machine%20uncached%20vs%20cached%20limits,-Virtual%20machines%20that" target="_blank" rel="noopener" style="color:var(--azure-blue); text-decoration:none; font-weight:600; font-size:0.85rem;">Learn more about Host Caching &#8599;</a></p>
+            </div>
+            <div class="concept-card">
+                <h3>Effective Performance</h3>
+                <p>Total disk IOPS/MBps for each caching group must not exceed the VM limit for that group:</p>
+                <span class="formula">Cached Total &le; VM Cached Limit<br>Uncached Total &le; VM Uncached Limit</span>
+            </div>
+            <div class="concept-card">
+                <h3>Common Misconfiguration</h3>
+                <p>Attaching multiple high-performance disks (e.g., P30 with 5,000 IOPS each) to a VM that cannot handle the aggregate. The VM throttles all disk IO, causing latency spikes and poor performance.</p>
+            </div>
+        </div>
+
+        <h3 style="color:var(--azure-dark); margin:1.5rem 0 1rem;">Recommendations</h3>
         <div class="concepts-grid">
             <div class="concept-card">
                 <h3>1. Match VM to Aggregate Disk IO</h3>
@@ -459,12 +664,12 @@
     <p>Reference: <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance" target="_blank">VM and disk performance</a> |
     <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types" target="_blank">Managed disk types</a> |
     <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview" target="_blank">VM sizes</a></p>
-    <p>Last updated: May 2026 — Verify values against official docs</p>
+    <p>Last updated: June 2026 — Verify values against official docs</p>
     <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.4rem;">
         Created by Jorge Calder&oacute;n with AI assistance (GitHub Copilot).
     </p>
     <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem; margin-bottom:0.2rem;">
-        Version: 0.0.3
+        Version: 0.0.4
     </p>
     <p style="margin-top:1rem;">
         <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR-t7pwg75wpMmwWATEox1V5UQ0oyMFdCM0YzUkZMNzVQTEpOOUFLOE4zVC4u" target="_blank" class="btn" style="display:inline-flex; align-items:center; gap:0.4rem; text-decoration:none;">

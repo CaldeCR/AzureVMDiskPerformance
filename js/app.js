@@ -987,3 +987,410 @@ initTheme();
 initPurposeDropdown();
 initBurstableTab();
 autoLoad();
+
+// ==================== DISK PERF USAGE SIMULATOR ====================
+
+const SIM_DISK_DATA = {
+    premium: [
+        { sku: 'P4',  size: '32 GiB',    iops: 120,   mbps: 25,   burstIops: 3500,  burstMbps: 170,  burstType: 'credit' },
+        { sku: 'P6',  size: '64 GiB',    iops: 120,   mbps: 25,   burstIops: 3500,  burstMbps: 170,  burstType: 'credit' },
+        { sku: 'P10', size: '128 GiB',   iops: 500,   mbps: 100,  burstIops: 3500,  burstMbps: 170,  burstType: 'credit' },
+        { sku: 'P15', size: '256 GiB',   iops: 1100,  mbps: 125,  burstIops: 3500,  burstMbps: 170,  burstType: 'credit' },
+        { sku: 'P20', size: '512 GiB',   iops: 2300,  mbps: 150,  burstIops: 3500,  burstMbps: 170,  burstType: 'credit' },
+        { sku: 'P30', size: '1 TiB',     iops: 5000,  mbps: 200,  burstIops: 30000, burstMbps: 1000, burstType: 'ondemand' },
+        { sku: 'P40', size: '2 TiB',     iops: 7500,  mbps: 250,  burstIops: 30000, burstMbps: 1000, burstType: 'ondemand' },
+        { sku: 'P50', size: '4 TiB',     iops: 7500,  mbps: 250,  burstIops: 30000, burstMbps: 1000, burstType: 'ondemand' },
+        { sku: 'P60', size: '8 TiB',     iops: 16000, mbps: 500,  burstIops: 30000, burstMbps: 1000, burstType: 'ondemand' },
+        { sku: 'P70', size: '16 TiB',    iops: 18000, mbps: 750,  burstIops: 30000, burstMbps: 1000, burstType: 'ondemand' },
+        { sku: 'P80', size: '32 TiB',    iops: 20000, mbps: 900,  burstIops: 30000, burstMbps: 1000, burstType: 'ondemand' },
+    ],
+    standardSsd: [
+        { sku: 'E4',  size: '32 GiB',    iops: 500,  mbps: 100, burstIops: 600,  burstMbps: 150, burstType: 'credit' },
+        { sku: 'E6',  size: '64 GiB',    iops: 500,  mbps: 100, burstIops: 600,  burstMbps: 150, burstType: 'credit' },
+        { sku: 'E10', size: '128 GiB',   iops: 500,  mbps: 100, burstIops: 600,  burstMbps: 150, burstType: 'credit' },
+        { sku: 'E15', size: '256 GiB',   iops: 500,  mbps: 100, burstIops: 600,  burstMbps: 150, burstType: 'credit' },
+        { sku: 'E20', size: '512 GiB',   iops: 500,  mbps: 100, burstIops: 600,  burstMbps: 150, burstType: 'credit' },
+        { sku: 'E30', size: '1 TiB',     iops: 500,  mbps: 100, burstIops: 1000, burstMbps: 250, burstType: 'credit' },
+        { sku: 'E40', size: '2 TiB',     iops: 500,  mbps: 100, burstIops: 0,    burstMbps: 0,   burstType: 'none' },
+        { sku: 'E50', size: '4 TiB',     iops: 500,  mbps: 100, burstIops: 0,    burstMbps: 0,   burstType: 'none' },
+        { sku: 'E60', size: '8 TiB',     iops: 2000, mbps: 400, burstIops: 0,    burstMbps: 0,   burstType: 'none' },
+        { sku: 'E70', size: '16 TiB',    iops: 4000, mbps: 600, burstIops: 0,    burstMbps: 0,   burstType: 'none' },
+        { sku: 'E80', size: '32 TiB',    iops: 6000, mbps: 750, burstIops: 0,    burstMbps: 0,   burstType: 'none' },
+    ],
+    standardHdd: [
+        { sku: 'S4',  size: '32 GiB',    iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S6',  size: '64 GiB',    iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S10', size: '128 GiB',   iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S15', size: '256 GiB',   iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S20', size: '512 GiB',   iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S30', size: '1 TiB',     iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S40', size: '2 TiB',     iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S50', size: '4 TiB',     iops: 500,  mbps: 60,  burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S60', size: '8 TiB',     iops: 1300, mbps: 300, burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S70', size: '16 TiB',    iops: 2000, mbps: 500, burstIops: 0, burstMbps: 0, burstType: 'none' },
+        { sku: 'S80', size: '32 TiB',    iops: 2000, mbps: 500, burstIops: 0, burstMbps: 0, burstType: 'none' },
+    ]
+};
+
+let simDisks = [];
+let simDiskId = 0;
+let simBurstChart = null;
+
+function initDiskSimulator() {
+    onSimDiskTypeChange();
+}
+
+function onSimDiskTypeChange() {
+    const type = document.getElementById('simDiskType').value;
+    const sel = document.getElementById('simDiskSku');
+    sel.innerHTML = '';
+    const disks = SIM_DISK_DATA[type] || [];
+    for (const d of disks) {
+        const opt = document.createElement('option');
+        opt.value = d.sku;
+        opt.textContent = d.sku + ' (' + d.size + ') — ' + d.iops.toLocaleString() + ' IOPS / ' + d.mbps + ' MBps';
+        sel.appendChild(opt);
+    }
+}
+
+function getSimDiskSpec(type, sku) {
+    const list = SIM_DISK_DATA[type] || [];
+    return list.find(d => d.sku === sku) || null;
+}
+
+function simAddDisk() {
+    const type = document.getElementById('simDiskType').value;
+    const sku = document.getElementById('simDiskSku').value;
+    const iopsUsage = parseInt(document.getElementById('simIopsUsage').value) || 0;
+    const mbpsUsage = parseInt(document.getElementById('simMbpsUsage').value) || 0;
+    const spec = getSimDiskSpec(type, sku);
+    if (!spec) return;
+    if (iopsUsage <= 0 && mbpsUsage <= 0) return;
+
+    simDiskId++;
+    simDisks.push({
+        id: simDiskId,
+        type: type,
+        sku: spec.sku,
+        size: spec.size,
+        iops: spec.iops,
+        mbps: spec.mbps,
+        burstIops: spec.burstIops,
+        burstMbps: spec.burstMbps,
+        burstType: spec.burstType,
+        iopsUsage: iopsUsage,
+        mbpsUsage: mbpsUsage
+    });
+
+    document.getElementById('simIopsUsage').value = '';
+    document.getElementById('simMbpsUsage').value = '';
+    simRenderAll();
+}
+
+function simRemoveDisk(id) {
+    simDisks = simDisks.filter(d => d.id !== id);
+    simRenderAll();
+}
+
+function simRenderAll() {
+    simRenderChips();
+    simRenderGauges();
+    simRenderBreakdownTable();
+    simRunChart();
+
+    const hasDisks = simDisks.length > 0;
+    document.getElementById('simGaugesCard').style.display = hasDisks ? '' : 'none';
+    document.getElementById('simChartCard').style.display = hasDisks ? '' : 'none';
+    document.getElementById('simTableCard').style.display = hasDisks ? '' : 'none';
+}
+
+function simRenderChips() {
+    const container = document.getElementById('simDiskChips');
+    container.innerHTML = '';
+    for (const d of simDisks) {
+        const chip = document.createElement('span');
+        chip.className = 'sim-disk-chip';
+        chip.innerHTML = d.sku + ' (' + d.size + ') — ' + d.iopsUsage.toLocaleString() + ' IOPS / ' + d.mbpsUsage + ' MBps ' +
+            '<button class="sim-chip-remove" onclick="simRemoveDisk(' + d.id + ')" title="Remove">&times;</button>';
+        container.appendChild(chip);
+    }
+}
+
+function simGetBarClass(pct) {
+    if (pct > 100) return 'danger';
+    if (pct >= 80) return 'warning';
+    return 'ok';
+}
+
+function simRenderGauges() {
+    const container = document.getElementById('simGaugesContainer');
+    container.innerHTML = '';
+
+    for (let i = 0; i < simDisks.length; i++) {
+        const d = simDisks[i];
+        const iopsPct = d.iops > 0 ? Math.round((d.iopsUsage / d.iops) * 100) : 0;
+        const mbpsPct = d.mbps > 0 ? Math.round((d.mbpsUsage / d.mbps) * 100) : 0;
+
+        let burstHtml = '';
+        if (d.burstType === 'credit') {
+            burstHtml = '<div class="sim-burst-note">&#9889; Credit burst available: up to ' + d.burstIops.toLocaleString() + ' IOPS / ' + d.burstMbps + ' MBps</div>';
+        } else if (d.burstType === 'ondemand') {
+            burstHtml = '<div class="sim-burst-note">&#9889; On-demand burst available: up to ' + d.burstIops.toLocaleString() + ' IOPS / ' + d.burstMbps.toLocaleString() + ' MBps</div>';
+        }
+
+        const section = document.createElement('div');
+        section.className = 'sim-gauge-section';
+        section.innerHTML =
+            '<div class="sim-gauge-title">' + d.sku + ' (' + d.size + ') — Disk ' + (i + 1) + '</div>' +
+            '<div class="summary-row">' +
+                '<span class="summary-label">IOPS</span>' +
+                '<div class="progress-container"><div class="progress-bar ' + simGetBarClass(iopsPct) + '" style="width:' + Math.min(iopsPct, 100) + '%"></div></div>' +
+                '<span class="summary-used">' + d.iopsUsage.toLocaleString() + '</span>' +
+                '<span class="summary-limit">/ ' + d.iops.toLocaleString() + '</span>' +
+            '</div>' +
+            '<div class="summary-row">' +
+                '<span class="summary-label">Throughput</span>' +
+                '<div class="progress-container"><div class="progress-bar ' + simGetBarClass(mbpsPct) + '" style="width:' + Math.min(mbpsPct, 100) + '%"></div></div>' +
+                '<span class="summary-used">' + d.mbpsUsage + '</span>' +
+                '<span class="summary-limit">/ ' + d.mbps + ' MBps</span>' +
+            '</div>' +
+            burstHtml;
+        container.appendChild(section);
+    }
+
+    // Aggregate
+    const aggSection = document.getElementById('simAggregateSection');
+    if (simDisks.length >= 2) {
+        aggSection.style.display = '';
+        const totalIopsUsed = simDisks.reduce((s, d) => s + d.iopsUsage, 0);
+        const totalIopsMax = simDisks.reduce((s, d) => s + d.iops, 0);
+        const totalMbpsUsed = simDisks.reduce((s, d) => s + d.mbpsUsage, 0);
+        const totalMbpsMax = simDisks.reduce((s, d) => s + d.mbps, 0);
+        const aggIopsPct = totalIopsMax > 0 ? Math.round((totalIopsUsed / totalIopsMax) * 100) : 0;
+        const aggMbpsPct = totalMbpsMax > 0 ? Math.round((totalMbpsUsed / totalMbpsMax) * 100) : 0;
+
+        const barIops = document.getElementById('simBarAggIops');
+        barIops.style.width = Math.min(aggIopsPct, 100) + '%';
+        barIops.className = 'progress-bar ' + simGetBarClass(aggIopsPct);
+        document.getElementById('simAggIopsUsed').textContent = totalIopsUsed.toLocaleString();
+        document.getElementById('simAggIopsMax').textContent = '/ ' + totalIopsMax.toLocaleString();
+
+        const barMbps = document.getElementById('simBarAggMbps');
+        barMbps.style.width = Math.min(aggMbpsPct, 100) + '%';
+        barMbps.className = 'progress-bar ' + simGetBarClass(aggMbpsPct);
+        document.getElementById('simAggMbpsUsed').textContent = totalMbpsUsed.toLocaleString();
+        document.getElementById('simAggMbpsMax').textContent = '/ ' + totalMbpsMax.toLocaleString();
+    } else {
+        aggSection.style.display = 'none';
+    }
+}
+
+function simRenderBreakdownTable() {
+    const tbody = document.getElementById('simBreakdownBody');
+    tbody.innerHTML = '';
+    for (const d of simDisks) {
+        const iopsPct = d.iops > 0 ? Math.round((d.iopsUsage / d.iops) * 100) : 0;
+        const mbpsPct = d.mbps > 0 ? Math.round((d.mbpsUsage / d.mbps) * 100) : 0;
+        const maxPct = Math.max(iopsPct, mbpsPct);
+        const pctColor = maxPct > 100 ? 'var(--danger)' : maxPct >= 80 ? '#ca5010' : 'var(--success)';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML =
+            '<td>' + d.sku + ' (' + d.size + ')</td>' +
+            '<td>' + d.iopsUsage.toLocaleString() + '</td>' +
+            '<td>' + d.iops.toLocaleString() + '</td>' +
+            '<td>' + d.mbpsUsage + '</td>' +
+            '<td>' + d.mbps + '</td>' +
+            '<td>' + (d.burstIops > 0 ? d.burstIops.toLocaleString() : '—') + '</td>' +
+            '<td>' + (d.burstMbps > 0 ? d.burstMbps.toLocaleString() : '—') + '</td>' +
+            '<td style="font-weight:600; color:' + pctColor + '">' + iopsPct + '%</td>' +
+            '<td style="font-weight:600; color:' + pctColor + '">' + mbpsPct + '%</td>' +
+            '<td><button class="disk-table .remove-btn" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:1rem;" onclick="simRemoveDisk(' + d.id + ')" title="Remove">&#10005;</button></td>';
+        tbody.appendChild(tr);
+    }
+}
+
+function simRunChart() {
+    if (simDisks.length === 0) return;
+    const durationMin = parseInt(document.getElementById('simDuration').value) || 60;
+    const stepMin = durationMin <= 60 ? 1 : (durationMin <= 120 ? 2 : 5);
+
+    // For the chart, we simulate the FIRST disk that has burst capability.
+    // If no burstable disk, we just show flat lines for all disks.
+    const labels = [];
+    const datasets = [];
+
+    // Colors for multiple disks
+    const iopsColors = ['#0078d4', '#107c10', '#ca5010', '#8764b8', '#d13438'];
+    const mbpsColors = ['#4da6ff', '#4caf50', '#ffb74d', '#b89adb', '#ef5350'];
+
+    for (let i = 0; i < simDisks.length; i++) {
+        const d = simDisks[i];
+        const iopsData = [];
+        const mbpsData = [];
+
+        // Credit-based burst: credits deplete over time
+        // Credits accumulate at baseline IOPS when idle, deplete at (usage - baseline) when bursting
+        // Full credit bucket = 30 minutes of burst at max burst rate
+        if (d.burstType === 'credit') {
+            // Credit burst: bucket starts full (30 min worth of burst delta)
+            const burstDelta = d.burstIops - d.iops;
+            const burstDeltaMbps = d.burstMbps - d.mbps;
+            let iopsCreditBucket = burstDelta > 0 ? burstDelta * 30 : 0; // 30 min of burst credits
+            let mbpsCreditBucket = burstDeltaMbps > 0 ? burstDeltaMbps * 30 : 0;
+            const maxIopsBucket = iopsCreditBucket;
+            const maxMbpsBucket = mbpsCreditBucket;
+
+            for (let t = 0; t <= durationMin; t += stepMin) {
+                if (i === 0) {
+                    if (durationMin <= 60) labels.push(t + 'm');
+                    else if (durationMin <= 120) labels.push(t % 10 === 0 ? t + 'm' : '');
+                    else labels.push(t % 30 === 0 ? (t / 60).toFixed(1) + 'h' : '');
+                }
+
+                let effectiveIops, effectiveMbps;
+                if (d.iopsUsage <= d.iops) {
+                    effectiveIops = d.iopsUsage;
+                    // Earn credits when below baseline
+                    iopsCreditBucket = Math.min(maxIopsBucket, iopsCreditBucket + (d.iops - d.iopsUsage) * stepMin);
+                } else {
+                    // Need to burst
+                    const neededIops = d.iopsUsage - d.iops;
+                    const availableIops = iopsCreditBucket > 0 ? Math.min(neededIops, d.burstIops - d.iops) : 0;
+                    effectiveIops = d.iops + availableIops;
+                    iopsCreditBucket = Math.max(0, iopsCreditBucket - neededIops * stepMin);
+                }
+
+                if (d.mbpsUsage <= d.mbps) {
+                    effectiveMbps = d.mbpsUsage;
+                    mbpsCreditBucket = Math.min(maxMbpsBucket, mbpsCreditBucket + (d.mbps - d.mbpsUsage) * stepMin);
+                } else {
+                    const neededMbps = d.mbpsUsage - d.mbps;
+                    const availableMbps = mbpsCreditBucket > 0 ? Math.min(neededMbps, d.burstMbps - d.mbps) : 0;
+                    effectiveMbps = d.mbps + availableMbps;
+                    mbpsCreditBucket = Math.max(0, mbpsCreditBucket - neededMbps * stepMin);
+                }
+
+                iopsData.push(effectiveIops);
+                mbpsData.push(effectiveMbps);
+            }
+        } else if (d.burstType === 'ondemand') {
+            // On-demand burst: sustained burst up to the burst cap (charged per IO above baseline)
+            for (let t = 0; t <= durationMin; t += stepMin) {
+                if (i === 0) {
+                    if (durationMin <= 60) labels.push(t + 'm');
+                    else if (durationMin <= 120) labels.push(t % 10 === 0 ? t + 'm' : '');
+                    else labels.push(t % 30 === 0 ? (t / 60).toFixed(1) + 'h' : '');
+                }
+                iopsData.push(Math.min(d.iopsUsage, d.burstIops));
+                mbpsData.push(Math.min(d.mbpsUsage, d.burstMbps));
+            }
+        } else {
+            // No burst: capped at baseline
+            for (let t = 0; t <= durationMin; t += stepMin) {
+                if (i === 0) {
+                    if (durationMin <= 60) labels.push(t + 'm');
+                    else if (durationMin <= 120) labels.push(t % 10 === 0 ? t + 'm' : '');
+                    else labels.push(t % 30 === 0 ? (t / 60).toFixed(1) + 'h' : '');
+                }
+                iopsData.push(Math.min(d.iopsUsage, d.iops));
+                mbpsData.push(Math.min(d.mbpsUsage, d.mbps));
+            }
+        }
+
+        const colorIdx = i % iopsColors.length;
+        datasets.push({
+            label: d.sku + ' IOPS (effective)',
+            data: iopsData,
+            borderColor: iopsColors[colorIdx],
+            backgroundColor: iopsColors[colorIdx] + '18',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 0,
+            borderWidth: 2,
+            yAxisID: 'yIops'
+        });
+        datasets.push({
+            label: d.sku + ' MBps (effective)',
+            data: mbpsData,
+            borderColor: mbpsColors[colorIdx],
+            backgroundColor: 'transparent',
+            borderDash: [5, 3],
+            fill: false,
+            tension: 0.3,
+            pointRadius: 0,
+            borderWidth: 2,
+            yAxisID: 'yMbps'
+        });
+
+        // Add baseline reference line for this disk
+        const baselineIopsData = new Array(labels.length).fill(d.iops);
+        datasets.push({
+            label: d.sku + ' baseline (' + d.iops.toLocaleString() + ' IOPS)',
+            data: baselineIopsData,
+            borderColor: iopsColors[colorIdx] + '60',
+            borderDash: [3, 3],
+            borderWidth: 1,
+            fill: false,
+            pointRadius: 0,
+            yAxisID: 'yIops'
+        });
+    }
+
+    const ctx = document.getElementById('simBurstChart').getContext('2d');
+    if (simBurstChart) simBurstChart.destroy();
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const gridColor = isDark ? '#404040' : '#edebe9';
+    const textColor = isDark ? '#a0a0a0' : '#605e5c';
+
+    simBurstChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: labels, datasets: datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: textColor, usePointStyle: true, padding: 12, font: { size: 11 } }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            const val = ctx.parsed.y;
+                            if (ctx.dataset.yAxisID === 'yMbps') return ctx.dataset.label + ': ' + val.toLocaleString() + ' MBps';
+                            return ctx.dataset.label + ': ' + val.toLocaleString();
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, maxTicksLimit: 12, font: { size: 10 } }
+                },
+                yIops: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'IOPS', color: textColor, font: { size: 11 } },
+                    grid: { color: gridColor },
+                    ticks: { color: textColor, font: { size: 10 }, callback: v => v.toLocaleString() },
+                    beginAtZero: true
+                },
+                yMbps: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'MBps', color: textColor, font: { size: 11 } },
+                    grid: { drawOnChartArea: false },
+                    ticks: { color: textColor, font: { size: 10 } },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Init simulator after SIM_DISK_DATA is defined
+initDiskSimulator();
