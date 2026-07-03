@@ -160,6 +160,8 @@ header p { font-size: 0.95rem; opacity: 0.8; position: relative; font-weight: 40
 .progress-bar.danger { background: linear-gradient(90deg, #8c1f22, #a4262c, #d13438); }
 .summary-used { font-family: 'Consolas', monospace; text-align: right; }
 .summary-limit { font-family: 'Consolas', monospace; text-align: right; color: var(--text-secondary); }
+.sim-gauge-header { margin-bottom: 0.2rem; }
+.sim-col-header { font-size: 0.75rem; font-weight: 600; text-align: right; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; }
 
 /* Status badges */
 .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem; font-weight: 600; }

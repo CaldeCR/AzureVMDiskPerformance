@@ -1173,6 +1173,18 @@ function simRenderGauges() {
     const container = document.getElementById('simGaugesContainer');
     container.innerHTML = '';
 
+    // Column headers for usage and limit values
+    if (simDisks.length > 0) {
+        const header = document.createElement('div');
+        header.className = 'summary-row sim-gauge-header';
+        header.innerHTML =
+            '<span></span>' +
+            '<span></span>' +
+            '<span class="sim-col-header">Usage</span>' +
+            '<span class="sim-col-header">Limit</span>';
+        container.appendChild(header);
+    }
+
     for (let i = 0; i < simDisks.length; i++) {
         const d = simDisks[i];
         const iopsPct = d.iops > 0 ? Math.round((d.iopsUsage / d.iops) * 100) : 0;

@@ -64,6 +64,15 @@ const VM_DATA = {
             "Standard_D48s_v3": {vcpus:48, mem:192, maxDisks:32, cachedIops:96000,  cachedMbps:768,  uncachedIops:76800, uncachedMbps:1152},
             "Standard_D64s_v3": {vcpus:64, mem:256, maxDisks:32, cachedIops:128000, cachedMbps:1024, uncachedIops:80000, uncachedMbps:1200}
         },
+        "Dsv4": {
+            "Standard_D2s_v4":  {vcpus:2,  mem:8,   local:null, remote:{maxDataDisks:4,  uncachedIopsPremium:3200,  uncachedMbpsPremium:48,  uncachedIopsBurstPremium:4000,  uncachedMbpsBurstPremium:200}},
+            "Standard_D4s_v4":  {vcpus:4,  mem:16,  local:null, remote:{maxDataDisks:8,  uncachedIopsPremium:6400,  uncachedMbpsPremium:96,  uncachedIopsBurstPremium:8000,  uncachedMbpsBurstPremium:200}},
+            "Standard_D8s_v4":  {vcpus:8,  mem:32,  local:null, remote:{maxDataDisks:16, uncachedIopsPremium:12800, uncachedMbpsPremium:192, uncachedIopsBurstPremium:16000, uncachedMbpsBurstPremium:400}},
+            "Standard_D16s_v4": {vcpus:16, mem:64,  local:null, remote:{maxDataDisks:32, uncachedIopsPremium:25600, uncachedMbpsPremium:384, uncachedIopsBurstPremium:32000, uncachedMbpsBurstPremium:800}},
+            "Standard_D32s_v4": {vcpus:32, mem:128, local:null, remote:{maxDataDisks:32, uncachedIopsPremium:51200, uncachedMbpsPremium:768, uncachedIopsBurstPremium:64000, uncachedMbpsBurstPremium:1600}},
+            "Standard_D48s_v4": {vcpus:48, mem:192, local:null, remote:{maxDataDisks:32, uncachedIopsPremium:76800, uncachedMbpsPremium:1152, uncachedIopsBurstPremium:80000, uncachedMbpsBurstPremium:2000}},
+            "Standard_D64s_v4": {vcpus:64, mem:256, local:null, remote:{maxDataDisks:32, uncachedIopsPremium:80000, uncachedMbpsPremium:1200, uncachedIopsBurstPremium:80000, uncachedMbpsBurstPremium:2000}}
+        },
         "Dsv5": {
             "Standard_D2s_v5":  {vcpus:2,  mem:8,   maxDisks:4,  cachedIops:0,     cachedMbps:0,   uncachedIops:3750,  uncachedMbps:85},
             "Standard_D4s_v5":  {vcpus:4,  mem:16,  maxDisks:8,  cachedIops:0,     cachedMbps:0,   uncachedIops:6400,  uncachedMbps:145},
@@ -1360,6 +1369,7 @@ const VM_DATA = {
 const VM_DOC_URLS = {
     // General Purpose
     "Dsv3":       "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dv3-dsv3-series",
+    "Dsv4":       "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dsv4-series",
     "Dsv5":       "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dsv5-series",
     "Ddsv5":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/ddsv5-series",
     "Dasv5":      "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dasv5-series",
@@ -1501,6 +1511,7 @@ const VM_DOC_URLS = {
 const DISK_CONTROLLER_TYPE = {
     // General Purpose
     "Dsv3":       "SCSI",
+    "Dsv4":       "SCSI",
     "Dsv5":       "SCSI",
     "Ddsv5":      "SCSI",
     "Dasv5":      "SCSI",

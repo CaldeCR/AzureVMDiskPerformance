@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azure VM and Disk Performance Limits</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -426,7 +427,13 @@
     <!-- ==================== DISK PERF SIMULATOR TAB ==================== -->
     <div id="disk-simulator" class="tab-content">
         <div class="info-banner">
-            <strong>How to use:</strong> Select a disk type and SKU, enter the IOPS and MBps your workload generates, then click <strong>Add Disk</strong>. Add multiple disks to see aggregate usage. The gauges show instant usage vs. limits, and the chart shows how burst credits deplete over time under sustained load.
+            <strong>How to use:</strong> Use this simulator to recreate a specific moment in time when your disk performance was high, or to explore how Azure disk limits behave under different workload patterns.
+            <ol style="margin:0.5rem 0 0 1.2rem; padding:0; font-size:0.85rem;">
+                <li>Select a <strong>disk type and SKU</strong> matching your Azure disk (e.g., P20).</li>
+                <li>Enter the <strong>IOPS and MBps</strong> your workload was generating at that moment (you can get these values from Azure Monitor metrics or disk performance counters).</li>
+                <li>Click <strong>Add Disk</strong>. Repeat to simulate multiple disks attached to the same VM.</li>
+            </ol>
+            <p style="margin:0.5rem 0 0; font-size:0.85rem;">The gauges visualize whether your workload is approaching or exceeding disk limits, and the burst chart shows how credit-based burst capacity depletes over time under sustained load.</p>
         </div>
 
         <!-- Disk Configuration -->
@@ -472,6 +479,7 @@
         <!-- Per-Disk Gauges -->
         <div class="card" id="simGaugesCard" style="display:none;">
             <h2>2. Usage vs. Limits</h2>
+            <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:1rem;"><strong>Usage</strong> is the IOPS or throughput your workload is generating (the value you entered). <strong>Limit</strong> is the maximum the disk SKU can deliver without bursting. When usage exceeds the limit, the disk is throttled unless burst credits are available.</p>
             <div id="simGaugesContainer"></div>
             <!-- Aggregate -->
             <div id="simAggregateSection" style="display:none; border-top:2px solid var(--border); padding-top:1rem; margin-top:1rem;">
